@@ -649,6 +649,119 @@ Bitmask of flight modes to disable for GCS selection. Mode can still be accessed
 
 # Lua Script Parameters
 
+## RCK_FORCEHL: Force enable High Latency mode
+
+Automatically enables High Latency mode if not already enabled
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## RCK_PERIOD: Update rate
+
+When in High Latency mode, send Rockblock updates every N seconds
+
+- Range: 0 600
+
+- Units: s
+
+## RCK_DEBUG: Display Rockblock debugging text
+
+Sends Rockblock debug text to GCS via statustexts
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## RCK_ENABLE: Enable Message transmission
+
+Enables the Rockblock sending and recieving
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## ESRC_EXTN_THRESH: EKF Source ExternalNav Innovation Threshold
+
+ExternalNav may be used if innovations are below this threshold
+
+- Range: 0 1
+
+## ESRC_EXTN_QUAL: EKF Source ExternalNav Quality Threshold
+
+ExternalNav may be used if quality is above this threshold
+
+- Range: 0 100
+
+- Units: %
+
+## ESRC_FLOW_THRESH: EKF Source OpticalFlow Innovation Threshold
+
+OpticalFlow may be used if innovations are below this threshold
+
+- Range: 0 1
+
+## ESRC_FLOW_QUAL: EKF Source OpticalFlow Quality Threshold
+
+OpticalFlow may be used if quality is above this threshold
+
+- Range: 0 100
+
+- Units: %
+
+## ESRC_RNGFND_MAX: EKF Source Rangefinder Max
+
+OpticalFlow may be used if rangefinder distance is below this threshold
+
+- Range: 0 50
+
+- Units: m
+
+## SHIP_ENABLE: Ship landing enable
+
+Enable ship landing system
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## SHIP_LAND_ANGLE: Ship landing angle
+
+Angle from the stern of the ship for landing approach. Use this to ensure that on a go-around that ship superstructure and cables are avoided. A value of zero means to approach from the rear of the ship. A value of 90 means the landing will approach from the port (left) side of the ship. A value of -90 will mean approaching from the starboard (right) side of the ship. A value of 180 will approach from the bow of the ship. This parameter is combined with the sign of the RTL_RADIUS parameter to determine the holdoff pattern. If RTL_RADIUS is positive then a clockwise loiter is performed, if RTL_RADIUS is negative then a counter-clockwise loiter is used.
+
+- Range: -180 180
+
+- Units: deg
+
+## SHIP_AUTO_OFS: Ship automatic offset trigger
+
+Settings this parameter to one triggers an automatic follow offset calculation based on current position of the vehicle and the landing target. NOTE: This parameter will auto-reset to zero once the offset has been calculated.
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Trigger|
+
+## PLND_ALT_CUTOFF: Precland altitude cutoff
+
+The altitude (rangefinder distance) below which we stop using the precision landing sensor and continue landing
+
+- Range: 0 20
+
+- Units: m
+
+## DIST_CUTOFF: Precland distance cutoff
+
+The distance from target beyond which the target is ignored
+
+- Range: 0 100
+
+- Units: m
+
 ## BATT_SOC_COUNT: Count of SOC estimators
 
 Number of battery SOC estimators
@@ -775,173 +888,6 @@ Battery estimator coefficient3
 
 - Range: 0.01 0.5
 
-## RCK_FORCEHL: Force enable High Latency mode
-
-Automatically enables High Latency mode if not already enabled
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## RCK_PERIOD: Update rate
-
-When in High Latency mode, send Rockblock updates every N seconds
-
-- Range: 0 600
-
-- Units: s
-
-## RCK_DEBUG: Display Rockblock debugging text
-
-Sends Rockblock debug text to GCS via statustexts
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## RCK_ENABLE: Enable Message transmission
-
-Enables the Rockblock sending and recieving
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## DR_ENABLE: Deadreckoning Enable
-
-Deadreckoning Enable
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## DR_ENABLE_DIST: Deadreckoning Enable Distance
-
-Distance from home (in meters) beyond which the dead reckoning will be enabled
-
-- Units: m
-
-## DR_GPS_SACC_MAX: Deadreckoning GPS speed accuracy maximum threshold
-
-GPS speed accuracy maximum, above which deadreckoning home will begin (default is 0.8).  Lower values trigger with good GPS quality, higher values will allow poorer GPS before triggering. Set to 0 to disable use of GPS speed accuracy
-
-- Range: 0 10
-
-## DR_GPS_SAT_MIN: Deadreckoning GPS satellite count min threshold
-
-GPS satellite count threshold below which deadreckoning home will begin (default is 6).  Higher values trigger with good GPS quality, Lower values trigger with worse GPS quality. Set to 0 to disable use of GPS satellite count
-
-- Range: 0 30
-
-## DR_GPS_TRIGG_SEC: Deadreckoning GPS check trigger seconds
-
-GPS checks must fail for this many seconds before dead reckoning will be triggered
-
-- Units: s
-
-## DR_FLY_ANGLE: Deadreckoning Lean Angle
-
-lean angle (in degrees) during deadreckoning
-
-- Units: deg
-
-- Range: 0 45
-
-## DR_FLY_ALT_MIN: Deadreckoning Altitude Min
-
-Copter will fly at at least this altitude (in meters) above home during deadreckoning
-
-- Units: m
-
-- Range: 0 1000
-
-## DR_FLY_TIMEOUT: Deadreckoning flight timeout
-
-Copter will attempt to switch to NEXT_MODE after this many seconds of deadreckoning.  If it cannot switch modes it will continue in Guided_NoGPS.  Set to 0 to disable timeout
-
-- Units: s
-
-## DR_NEXT_MODE: Deadreckoning Next Mode
-
-Copter switch to this mode after GPS recovers or DR_FLY_TIMEOUT has elapsed.  Default is 6/RTL.  Set to -1 to return to mode used before deadreckoning was triggered
-
-|Value|Meaning|
-|:---:|:---:|
-|2|AltHold|
-|3|Auto|
-|4|Guided|
-|5|Loiter|
-|6|RTL|
-|7|Circle|
-|9|Land|
-|16|PosHold|
-|17|Brake|
-|20|Guided_NoGPS|
-|21|Smart_RTL|
-|27|Auto RTL|
-
-## POI_DIST_MAX: Mount POI distance max
-
-POI's max distance (in meters) from the vehicle
-
-- Range: 0 10000
-
-## WEB_ENABLE: enable web server
-
-enable web server
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## WEB_BIND_PORT: web server TCP port
-
-web server TCP port
-
-- Range: 1 65535
-
-## WEB_DEBUG: web server debugging
-
-*Note: This parameter is for advanced users*
-
-web server debugging
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## WEB_BLOCK_SIZE: web server block size
-
-*Note: This parameter is for advanced users*
-
-web server block size for download
-
-- Range: 1 65535
-
-## WEB_TIMEOUT: web server timeout
-
-*Note: This parameter is for advanced users*
-
-timeout for inactive connections
-
-- Units: s
-
-- Range: 0.1 60
-
-## WEB_SENDFILE_MIN: web server minimum file size for sendfile
-
-*Note: This parameter is for advanced users*
-
-sendfile is an offloading mechanism for faster file download. If this is non-zero and the file is larger than this size then sendfile will be used for file download
-
-- Range: 0 10000000
-
 ## RTUN_ENABLE: Rover Quicktune enable
 
 Enable quicktune system
@@ -1023,32 +969,98 @@ RCn_OPTION number to use to control tuning stop/start/save
 |306|Scripting7|
 |307|Scripting8|
 
-## WINCH_RATE_UP: WinchControl Rate Up
+## POI_DIST_MAX: Mount POI distance max
 
-Maximum rate when retracting line
+POI's max distance (in meters) from the vehicle
 
-- Range: 0.1 5.0
+- Range: 0 10000
 
-## WINCH_RATE_DN: WinchControl Rate Down
+## PREV_ENABLE: parameter reversion enable
 
-Maximum rate when releasing line
-
-- Range: 0.1 5.0
-
-## WINCH_RC_FUNC: Winch Rate Control RC function
-
-RCn_OPTION number to use to control winch rate
+Enable parameter reversion system
 
 |Value|Meaning|
 |:---:|:---:|
-|300|Scripting1|
-|301|Scripting2|
-|302|Scripting3|
-|303|Scripting4|
-|304|Scripting5|
-|305|Scripting6|
-|306|Scripting7|
-|307|Scripting8|
+|0|Disabled|
+|1|Enabled|
+
+## PREV_RC_FUNC: param reversion RC function
+
+RCn_OPTION number to used to trigger parameter reversion
+
+## DR_ENABLE: Deadreckoning Enable
+
+Deadreckoning Enable
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## DR_ENABLE_DIST: Deadreckoning Enable Distance
+
+Distance from home (in meters) beyond which the dead reckoning will be enabled
+
+- Units: m
+
+## DR_GPS_SACC_MAX: Deadreckoning GPS speed accuracy maximum threshold
+
+GPS speed accuracy maximum, above which deadreckoning home will begin (default is 0.8).  Lower values trigger with good GPS quality, higher values will allow poorer GPS before triggering. Set to 0 to disable use of GPS speed accuracy
+
+- Range: 0 10
+
+## DR_GPS_SAT_MIN: Deadreckoning GPS satellite count min threshold
+
+GPS satellite count threshold below which deadreckoning home will begin (default is 6).  Higher values trigger with good GPS quality, Lower values trigger with worse GPS quality. Set to 0 to disable use of GPS satellite count
+
+- Range: 0 30
+
+## DR_GPS_TRIGG_SEC: Deadreckoning GPS check trigger seconds
+
+GPS checks must fail for this many seconds before dead reckoning will be triggered
+
+- Units: s
+
+## DR_FLY_ANGLE: Deadreckoning Lean Angle
+
+lean angle (in degrees) during deadreckoning
+
+- Units: deg
+
+- Range: 0 45
+
+## DR_FLY_ALT_MIN: Deadreckoning Altitude Min
+
+Copter will fly at at least this altitude (in meters) above home during deadreckoning
+
+- Units: m
+
+- Range: 0 1000
+
+## DR_FLY_TIMEOUT: Deadreckoning flight timeout
+
+Copter will attempt to switch to NEXT_MODE after this many seconds of deadreckoning.  If it cannot switch modes it will continue in Guided_NoGPS.  Set to 0 to disable timeout
+
+- Units: s
+
+## DR_NEXT_MODE: Deadreckoning Next Mode
+
+Copter switch to this mode after GPS recovers or DR_FLY_TIMEOUT has elapsed.  Default is 6/RTL.  Set to -1 to return to mode used before deadreckoning was triggered
+
+|Value|Meaning|
+|:---:|:---:|
+|2|AltHold|
+|3|Auto|
+|4|Guided|
+|5|Loiter|
+|6|RTL|
+|7|Circle|
+|9|Land|
+|16|PosHold|
+|17|Brake|
+|20|Guided_NoGPS|
+|21|Smart_RTL|
+|27|Auto RTL|
 
 ## QUIK_ENABLE: Quicktune enable
 
@@ -1144,44 +1156,84 @@ Additional options. When the Two Position Switch option is enabled then a high s
 
 - Bitmask: 0:UseTwoPositionSwitch
 
-## SHIP_ENABLE: Ship landing enable
+## WINCH_RATE_UP: WinchControl Rate Up
 
-Enable ship landing system
+Maximum rate when retracting line
+
+- Range: 0.1 5.0
+
+## WINCH_RATE_DN: WinchControl Rate Down
+
+Maximum rate when releasing line
+
+- Range: 0.1 5.0
+
+## WINCH_RC_FUNC: Winch Rate Control RC function
+
+RCn_OPTION number to use to control winch rate
+
+|Value|Meaning|
+|:---:|:---:|
+|300|Scripting1|
+|301|Scripting2|
+|302|Scripting3|
+|303|Scripting4|
+|304|Scripting5|
+|305|Scripting6|
+|306|Scripting7|
+|307|Scripting8|
+
+## WEB_ENABLE: enable web server
+
+enable web server
 
 |Value|Meaning|
 |:---:|:---:|
 |0|Disabled|
 |1|Enabled|
 
-## SHIP_LAND_ANGLE: Ship landing angle
+## WEB_BIND_PORT: web server TCP port
 
-Angle from the stern of the ship for landing approach. Use this to ensure that on a go-around that ship superstructure and cables are avoided. A value of zero means to approach from the rear of the ship. A value of 90 means the landing will approach from the port (left) side of the ship. A value of -90 will mean approaching from the starboard (right) side of the ship. A value of 180 will approach from the bow of the ship. This parameter is combined with the sign of the RTL_RADIUS parameter to determine the holdoff pattern. If RTL_RADIUS is positive then a clockwise loiter is performed, if RTL_RADIUS is negative then a counter-clockwise loiter is used.
+web server TCP port
 
-- Range: -180 180
+- Range: 1 65535
 
-- Units: deg
+## WEB_DEBUG: web server debugging
 
-## SHIP_AUTO_OFS: Ship automatic offset trigger
+*Note: This parameter is for advanced users*
 
-Settings this parameter to one triggers an automatic follow offset calculation based on current position of the vehicle and the landing target. NOTE: This parameter will auto-reset to zero once the offset has been calculated.
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Trigger|
-
-## PREV_ENABLE: parameter reversion enable
-
-Enable parameter reversion system
+web server debugging
 
 |Value|Meaning|
 |:---:|:---:|
 |0|Disabled|
 |1|Enabled|
 
-## PREV_RC_FUNC: param reversion RC function
+## WEB_BLOCK_SIZE: web server block size
 
-RCn_OPTION number to used to trigger parameter reversion
+*Note: This parameter is for advanced users*
+
+web server block size for download
+
+- Range: 1 65535
+
+## WEB_TIMEOUT: web server timeout
+
+*Note: This parameter is for advanced users*
+
+timeout for inactive connections
+
+- Units: s
+
+- Range: 0.1 60
+
+## WEB_SENDFILE_MIN: web server minimum file size for sendfile
+
+*Note: This parameter is for advanced users*
+
+sendfile is an offloading mechanism for faster file download. If this is non-zero and the file is larger than this size then sendfile will be used for file download
+
+- Range: 0 10000000
 
 ## AEROM_ANG_ACCEL: Angular acceleration limit
 
@@ -1371,102 +1423,26 @@ Number of tricks which can be selected over the range of the trik selection RC c
 
 - Range: 1 11
 
-## BATT_ANX_ENABLE: Enable ANX battery support
+## ESC_HW_ENABLE: Hobbywing ESC Enable
 
-Enable ANX battery support
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## BATT_ANX_CANDRV: Set ANX CAN driver
-
-Set ANX CAN driver
-
-|Value|Meaning|
-|:---:|:---:|
-|0|None|
-|1|1stCANDriver|
-|2|2ndCanDriver|
-
-## BATT_ANX_INDEX: ANX CAN battery index
-
-ANX CAN battery index
-
-- Range: 1 10
-
-## BATT_ANX_OPTIONS: ANX CAN battery options
-
-*Note: This parameter is for advanced users*
-
-ANX CAN battery options
-
-- Bitmask: 0:LogAllFrames
-
-## EFI_DLA_ENABLE: EFI DLA enable
-
-Enable EFI DLA driver
+Enable Hobbywing ESC telemetry
 
 |Value|Meaning|
 |:---:|:---:|
 |0|Disabled|
 |1|Enabled|
 
-## EFI_DLA_LPS: EFI DLA fuel scale
+## ESC_HW_POLES: Hobbywing ESC motor poles
 
-EFI DLA litres of fuel per second of injection time
+Number of motor poles for eRPM scaling
 
-- Range: 0.00001 1
+- Range: 1 50
 
-- Units: litres
+## ESC_HW_OFS: Hobbywing ESC motor offset
 
-## EFI_H6K_ENABLE: Enable Halo6000 EFI driver
+Motor number offset of first ESC
 
-Enable Halo6000 EFI driver
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## EFI_H6K_CANDRV: Halo6000 CAN driver
-
-Halo6000 CAN driver. Use 1 for first CAN scripting driver, 2 for 2nd driver
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|FirstCAN|
-|2|SecondCAN|
-
-## EFI_H6K_START_FN: Halo6000 start auxilliary function
-
-The RC auxilliary function number for start/stop of the generator. Zero to disable start function
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|300|300|
-|301|301|
-|302|302|
-|303|303|
-|304|304|
-|305|305|
-|306|306|
-|307|307|
-
-## EFI_H6K_TELEM_RT: Halo6000 telemetry rate
-
-The rate that additional generator telemetry is sent
-
-- Units: Hz
-
-## EFI_H6K_FUELTOT: Halo6000 total fuel capacity
-
-The capacity of the tank in litres
-
-- Units: litres
+- Range: 0 31
 
 ## EFI_SP_ENABLE: Enable SkyPower EFI support
 
@@ -1612,75 +1588,6 @@ SkyPower EFI restart time. If engine should be running and it has stopped for th
 
 - Units: s
 
-## EFI_SVF_ENABLE: Generator SVFFI enable
-
-Enable SVFFI generator support
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## EFI_SVF_ARMCHECK: Generator SVFFI arming check
-
-Check for Generator ARM state before arming
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## ESC_HW_ENABLE: Hobbywing ESC Enable
-
-Enable Hobbywing ESC telemetry
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## ESC_HW_POLES: Hobbywing ESC motor poles
-
-Number of motor poles for eRPM scaling
-
-- Range: 1 50
-
-## ESC_HW_OFS: Hobbywing ESC motor offset
-
-Motor number offset of first ESC
-
-- Range: 0 31
-
-## EFI_INF_ENABLE: EFI INF-Inject enable
-
-Enable EFI INF-Inject driver
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-
-## DJIR_DEBUG: DJIRS2 debug
-
-*Note: This parameter is for advanced users*
-
-Enable DJIRS2 debug
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Disabled|
-|1|Enabled|
-|2|Enabled with attitude reporting|
-
-## DJIR_UPSIDEDOWN: DJIRS2 upside down
-
-DJIRS2 upside down
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Right side up|
-|1|Upside down|
-
 ## VIEP_DEBUG: ViewPro debug
 
 *Note: This parameter is for advanced users*
@@ -1750,6 +1657,170 @@ ViewPro Zoom Times Max
 
 - Range: 0 30
 
+## EFI_H6K_ENABLE: Enable Halo6000 EFI driver
+
+Enable Halo6000 EFI driver
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## EFI_H6K_CANDRV: Halo6000 CAN driver
+
+Halo6000 CAN driver. Use 1 for first CAN scripting driver, 2 for 2nd driver
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|FirstCAN|
+|2|SecondCAN|
+
+## EFI_H6K_START_FN: Halo6000 start auxilliary function
+
+The RC auxilliary function number for start/stop of the generator. Zero to disable start function
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|300|300|
+|301|301|
+|302|302|
+|303|303|
+|304|304|
+|305|305|
+|306|306|
+|307|307|
+
+## EFI_H6K_TELEM_RT: Halo6000 telemetry rate
+
+The rate that additional generator telemetry is sent
+
+- Units: Hz
+
+## EFI_H6K_FUELTOT: Halo6000 total fuel capacity
+
+The capacity of the tank in litres
+
+- Units: litres
+
+## EFI_DLA_ENABLE: EFI DLA enable
+
+Enable EFI DLA driver
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## EFI_DLA_LPS: EFI DLA fuel scale
+
+EFI DLA litres of fuel per second of injection time
+
+- Range: 0.00001 1
+
+- Units: litres
+
+## DJIR_DEBUG: DJIRS2 debug
+
+*Note: This parameter is for advanced users*
+
+Enable DJIRS2 debug
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+|2|Enabled with attitude reporting|
+
+## DJIR_UPSIDEDOWN: DJIRS2 upside down
+
+DJIRS2 upside down
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Right side up|
+|1|Upside down|
+
+## BATT_ANX_ENABLE: Enable ANX battery support
+
+Enable ANX battery support
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## BATT_ANX_CANDRV: Set ANX CAN driver
+
+Set ANX CAN driver
+
+|Value|Meaning|
+|:---:|:---:|
+|0|None|
+|1|1stCANDriver|
+|2|2ndCanDriver|
+
+## BATT_ANX_INDEX: ANX CAN battery index
+
+ANX CAN battery index
+
+- Range: 1 10
+
+## BATT_ANX_OPTIONS: ANX CAN battery options
+
+*Note: This parameter is for advanced users*
+
+ANX CAN battery options
+
+- Bitmask: 0:LogAllFrames
+
+## EFI_INF_ENABLE: EFI INF-Inject enable
+
+Enable EFI INF-Inject driver
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## EFI_SVF_ENABLE: Generator SVFFI enable
+
+Enable SVFFI generator support
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## EFI_SVF_ARMCHECK: Generator SVFFI arming check
+
+Check for Generator ARM state before arming
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
+
+## TOFSENSE_S1_PRX: TOFSENSE-M to be used as Proximity sensor
+
+Set 0 if sensor is to be used as a 1-D rangefinder (minimum of all distances will be sent, typically used for height detection). Set 1 if it should be used as a 3-D proximity device (Eg. Obstacle Avoidance)
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Set as Rangefinder|
+|1|Set as Proximity sensor|
+
+## TOFSENSE_S1_SP: TOFSENSE-M serial port config
+
+UART instance sensor is connected to. Set 1 if sensor is connected to the port with fist SERIALx_PROTOCOL = 28. 
+
+- Range: 1 4
+
+## TOFSENSE_S1_BR: TOFSENSE-M serial port baudrate
+
+Serial Port baud rate. Sensor baud rate can be changed from Nassistant software
+
 ## TOFSENSE_PRX: TOFSENSE-M to be used as Proximity sensor
 
 Set 0 if sensor is to be used as a 1-D rangefinder (minimum of all distances will be sent, typically used for height detection). Set 1 if it should be used as a 3-D proximity device (Eg. Obstacle Avoidance)
@@ -1809,25 +1880,6 @@ Third TOFSENSE-M sensors backend Instance. Setting this to 3 will pick the secon
 Third TOFSENSE-M sensor ID. This cannot be 0. You can change ID of sensor from NAssistant Software
 
 - Range: 1 255
-
-## TOFSENSE_S1_PRX: TOFSENSE-M to be used as Proximity sensor
-
-Set 0 if sensor is to be used as a 1-D rangefinder (minimum of all distances will be sent, typically used for height detection). Set 1 if it should be used as a 3-D proximity device (Eg. Obstacle Avoidance)
-
-|Value|Meaning|
-|:---:|:---:|
-|0|Set as Rangefinder|
-|1|Set as Proximity sensor|
-
-## TOFSENSE_S1_SP: TOFSENSE-M serial port config
-
-UART instance sensor is connected to. Set 1 if sensor is connected to the port with fist SERIALx_PROTOCOL = 28. 
-
-- Range: 1 4
-
-## TOFSENSE_S1_BR: TOFSENSE-M serial port baudrate
-
-Serial Port baud rate. Sensor baud rate can be changed from Nassistant software
 
 # AFS Parameters
 
@@ -2327,6 +2379,17 @@ Compass magnetic field strength error threshold vs earth magnetic model.  X and 
 - Units: mGauss
 
 - Range: 0 500
+
+## ARMING_CRSDP_IGN: Disable CrashDump Arming check
+
+*Note: This parameter is for advanced users*
+
+Must have value "1" if crashdump data is present on the system, or a prearm failure will be raised.  Do not set this parameter unless the risks of doing so are fully understood.  The presence of a crash dump means that the firmware currently installed has suffered a critical software failure which resulted in the autopilot immediately rebooting.  The crashdump file gives diagnostic information which can help in finding the issue, please contact the ArduPIlot support team.  If this crashdump data is present, the vehicle is likely unsafe to fly.  Check the ArduPilot documentation for more details.
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Crash Dump arming check active|
+|1|Crash Dump arming check deactivated|
 
 # ARSPD Parameters
 
@@ -10231,6 +10294,16 @@ This sets the amount of storage in kilobytes reserved on the microsd card in mis
 
 - RebootRequired: True
 
+## BRD_SD_FENCE:  SDCard Fence size
+
+*Note: This parameter is for advanced users*
+
+This sets the amount of storage in kilobytes reserved on the microsd card in fence.stg for fence storage.
+
+- Range: 0 64
+
+- RebootRequired: True
+
 ## BRD_IO_DSHOT: Load DShot FW on IO
 
 *Note: This parameter is for advanced users*
@@ -10605,6 +10678,7 @@ Auxiliary RC Options function executed on pin change
 |172|Battery MPPT Enable|
 |174|Camera Image Tracking|
 |175|Camera Lens|
+|177|Mount LRF enable|
 |201|Roll|
 |202|Pitch|
 |207|MainSail|
@@ -10697,6 +10771,7 @@ Auxiliary RC Options function executed on pin change
 |172|Battery MPPT Enable|
 |174|Camera Image Tracking|
 |175|Camera Lens|
+|177|Mount LRF enable|
 |201|Roll|
 |202|Pitch|
 |207|MainSail|
@@ -10789,6 +10864,7 @@ Auxiliary RC Options function executed on pin change
 |172|Battery MPPT Enable|
 |174|Camera Image Tracking|
 |175|Camera Lens|
+|177|Mount LRF enable|
 |201|Roll|
 |202|Pitch|
 |207|MainSail|
@@ -10881,6 +10957,7 @@ Auxiliary RC Options function executed on pin change
 |172|Battery MPPT Enable|
 |174|Camera Image Tracking|
 |175|Camera Lens|
+|177|Mount LRF enable|
 |201|Roll|
 |202|Pitch|
 |207|MainSail|
@@ -11241,7 +11318,7 @@ Enabling this option starts selected protocol that will use this virtual driver
 |11|Benewake|
 |12|Scripting2|
 |13|TOFSenseP|
-|14|NanoRadar_NRA24|
+|14|NanoRadar|
 
 - RebootRequired: True
 
@@ -11259,7 +11336,7 @@ Secondary protocol with 11 bit CAN addressing
 |11|Benewake|
 |12|Scripting2|
 |13|TOFSenseP|
-|14|NanoRadar_NRA24|
+|14|NanoRadar|
 
 - RebootRequired: True
 
@@ -11780,7 +11857,7 @@ Enabling this option starts selected protocol that will use this virtual driver
 |11|Benewake|
 |12|Scripting2|
 |13|TOFSenseP|
-|14|NanoRadar_NRA24|
+|14|NanoRadar|
 
 - RebootRequired: True
 
@@ -11798,7 +11875,7 @@ Secondary protocol with 11 bit CAN addressing
 |11|Benewake|
 |12|Scripting2|
 |13|TOFSenseP|
-|14|NanoRadar_NRA24|
+|14|NanoRadar|
 
 - RebootRequired: True
 
@@ -12319,7 +12396,7 @@ Enabling this option starts selected protocol that will use this virtual driver
 |11|Benewake|
 |12|Scripting2|
 |13|TOFSenseP|
-|14|NanoRadar_NRA24|
+|14|NanoRadar|
 
 - RebootRequired: True
 
@@ -12337,7 +12414,7 @@ Secondary protocol with 11 bit CAN addressing
 |11|Benewake|
 |12|Scripting2|
 |13|TOFSenseP|
-|14|NanoRadar_NRA24|
+|14|NanoRadar|
 
 - RebootRequired: True
 
@@ -14255,6 +14332,12 @@ External AHRS options bitmask
 External AHRS sensors bitmask
 
 - Bitmask: 0:GPS,1:IMU,2:Baro,3:Compass
+
+## EAHRS_LOG_RATE: AHRS logging rate
+
+Logging rate for EARHS devices
+
+- Units: Hz
 
 # EFI Parameters
 
@@ -17165,7 +17248,7 @@ Determines which of the accuracy measures Horizontal position, Vertical Position
 
 Additional backend specific options
 
-- Bitmask: 0:Use UART2 for moving baseline on ublox,1:Use base station for GPS yaw on SBF,2:Use baudrate 115200,3:Use dedicated CAN port b/w GPSes for moving baseline,4:Use ellipsoid height instead of AMSL, 5:Override GPS satellite health of L5 band from L1 health
+- Bitmask: 0:Use UART2 for moving baseline on ublox,1:Use base station for GPS yaw on SBF,2:Use baudrate 115200,3:Use dedicated CAN port b/w GPSes for moving baseline,4:Use ellipsoid height instead of AMSL, 5:Override GPS satellite health of L5 band from L1 health, 6:Enable RTCM full parse even for a single channel, 7:Disable automatic full RTCM parsing when RTCM seen on more than one channel
 
 ## GPS_COM_PORT: GPS physical COM port
 
@@ -19938,6 +20021,12 @@ Default Target sysID for the mount to point to
 
 Mount device ID, taking into account its type, bus and instance
 
+## MNT1_OPTIONS: Mount options
+
+Mount options bitmask
+
+- Bitmask: 0:RC lock state from previous mode
+
 # MNT2 Parameters
 
 ## MNT2_TYPE: Mount Type
@@ -20137,6 +20226,12 @@ Default Target sysID for the mount to point to
 
 Mount device ID, taking into account its type, bus and instance
 
+## MNT2_OPTIONS: Mount options
+
+Mount options bitmask
+
+- Bitmask: 0:RC lock state from previous mode
+
 # MOT Parameters
 
 ## MOT_PWM_TYPE: Motor Output PWM type
@@ -20288,7 +20383,7 @@ A bitmask to set some MSP specific options: EnableTelemetryMode-allows "push" mo
 
 # NET Parameters
 
-## NET_ENABLED: Networking Enable
+## NET_ENABLE: Networking Enable
 
 *Note: This parameter is for advanced users*
 
@@ -27921,6 +28016,7 @@ What type of proximity sensor is connected
 |14|DroneCAN|
 |15|Scripting|
 |16|LD06|
+|17|MR72_CAN|
 
 - RebootRequired: True
 
@@ -28033,6 +28129,16 @@ The bus address of the sensor, where applicable. Used for the I2C and DroneCAN s
 
 - Increment: 1
 
+# PRX1 Parameters
+
+## PRX1_RECV_ID: CAN receive ID
+
+*Note: This parameter is for advanced users*
+
+The receive ID of the CAN frames. A value of zero means all IDs are accepted.
+
+- Range: 0 65535
+
 # PRX2 Parameters
 
 ## PRX2_TYPE: Proximity type
@@ -28055,6 +28161,7 @@ What type of proximity sensor is connected
 |14|DroneCAN|
 |15|Scripting|
 |16|LD06|
+|17|MR72_CAN|
 
 - RebootRequired: True
 
@@ -28167,6 +28274,16 @@ The bus address of the sensor, where applicable. Used for the I2C and DroneCAN s
 
 - Increment: 1
 
+# PRX2 Parameters
+
+## PRX2_RECV_ID: CAN receive ID
+
+*Note: This parameter is for advanced users*
+
+The receive ID of the CAN frames. A value of zero means all IDs are accepted.
+
+- Range: 0 65535
+
 # PRX3 Parameters
 
 ## PRX3_TYPE: Proximity type
@@ -28189,6 +28306,7 @@ What type of proximity sensor is connected
 |14|DroneCAN|
 |15|Scripting|
 |16|LD06|
+|17|MR72_CAN|
 
 - RebootRequired: True
 
@@ -28301,6 +28419,16 @@ The bus address of the sensor, where applicable. Used for the I2C and DroneCAN s
 
 - Increment: 1
 
+# PRX3 Parameters
+
+## PRX3_RECV_ID: CAN receive ID
+
+*Note: This parameter is for advanced users*
+
+The receive ID of the CAN frames. A value of zero means all IDs are accepted.
+
+- Range: 0 65535
+
 # PRX4 Parameters
 
 ## PRX4_TYPE: Proximity type
@@ -28323,6 +28451,7 @@ What type of proximity sensor is connected
 |14|DroneCAN|
 |15|Scripting|
 |16|LD06|
+|17|MR72_CAN|
 
 - RebootRequired: True
 
@@ -28434,6 +28563,16 @@ The bus address of the sensor, where applicable. Used for the I2C and DroneCAN s
 - Range: 0 127
 
 - Increment: 1
+
+# PRX4 Parameters
+
+## PRX4_RECV_ID: CAN receive ID
+
+*Note: This parameter is for advanced users*
+
+The receive ID of the CAN frames. A value of zero means all IDs are accepted.
+
+- Range: 0 65535
 
 # PSC Parameters
 
@@ -28709,6 +28848,7 @@ Function assigned to this RC channel
 |172|Battery MPPT Enable|
 |174|Camera Image Tracking|
 |175|Camera Lens|
+|177|Mount LRF enable|
 |201|Roll|
 |202|Pitch|
 |207|MainSail|
@@ -34714,6 +34854,121 @@ Specifies vehicle's startup altitude (AMSL)
 
 Specifies vehicle's startup heading (0-360)
 
+## SIM_VICON_POS_X: SITL vicon position on vehicle in Forward direction
+
+*Note: This parameter is for advanced users*
+
+SITL vicon position on vehicle in Forward direction
+
+- Units: m
+
+- Range: 0 10
+
+## SIM_VICON_POS_Y: SITL vicon position on vehicle in Right direction
+
+*Note: This parameter is for advanced users*
+
+SITL vicon position on vehicle in Right direction
+
+- Units: m
+
+- Range: 0 10
+
+## SIM_VICON_POS_Z: SITL vicon position on vehicle in Down direction
+
+SITL vicon position on vehicle in Down direction
+
+- Units: m
+
+- Range: 0 10
+
+## SIM_VICON_GLIT_X: SITL vicon position glitch North
+
+*Note: This parameter is for advanced users*
+
+SITL vicon position glitch North
+
+- Units: m
+
+## SIM_VICON_GLIT_Y: SITL vicon position glitch East
+
+*Note: This parameter is for advanced users*
+
+SITL vicon position glitch East
+
+- Units: m
+
+## SIM_VICON_GLIT_Z: SITL vicon position glitch Down
+
+*Note: This parameter is for advanced users*
+
+SITL vicon position glitch Down
+
+- Units: m
+
+## SIM_VICON_FAIL: SITL vicon failure
+
+*Note: This parameter is for advanced users*
+
+SITL vicon failure
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Vicon Healthy|
+|1|Vicon Failed|
+
+## SIM_VICON_YAW: SITL vicon yaw angle in earth frame
+
+*Note: This parameter is for advanced users*
+
+SITL vicon yaw angle in earth frame
+
+- Units: deg
+
+- Range: 0 360
+
+## SIM_VICON_YAWERR: SITL vicon yaw error
+
+*Note: This parameter is for advanced users*
+
+SITL vicon yaw added to reported yaw sent to vehicle
+
+- Units: deg
+
+- Range: -180 180
+
+## SIM_VICON_TMASK: SITL vicon type mask
+
+*Note: This parameter is for advanced users*
+
+SITL vicon messages sent
+
+- Bitmask: 0:VISION_POSITION_ESTIMATE, 1:VISION_SPEED_ESTIMATE, 2:VICON_POSITION_ESTIMATE, 3:VISION_POSITION_DELTA, 4:ODOMETRY
+
+## SIM_VICON_VGLI_X: SITL vicon velocity glitch North
+
+*Note: This parameter is for advanced users*
+
+SITL vicon velocity glitch North
+
+- Units: m/s
+
+## SIM_VICON_VGLI_Y: SITL vicon velocity glitch East
+
+*Note: This parameter is for advanced users*
+
+SITL vicon velocity glitch East
+
+- Units: m/s
+
+## SIM_VICON_VGLI_Z: SITL vicon velocity glitch Down
+
+*Note: This parameter is for advanced users*
+
+SITL vicon velocity glitch Down
+
+- Units: m/s
+
 ## SIM_IMU_COUNT: IMU count
 
 Number of simulated IMUs to create
@@ -35873,13 +36128,13 @@ Precland device center's longitude
 
 - Range: -180 180
 
-## SIM_PLD_HEIGHT: Precland device center's height above sealevel
+## SIM_PLD_HEIGHT: Precland device center's height SITL origin
 
 *Note: This parameter is for advanced users*
 
-Precland device center's height above sealevel assume a 2x2m square as station base
+Precland device center's height above SITL origin. Assumes a 2x2m square as station base
 
-- Units: cm
+- Units: m
 
 - Increment: 1
 
@@ -35958,6 +36213,17 @@ Precland device orientation vector
 SIM_Precland extra options
 
 - Bitmask: 0: Enable target distance
+
+## SIM_PLD_SHIP: SIM_Precland follow ship
+
+*Note: This parameter is for advanced users*
+
+This makes the position of the landing beacon follow the simulated ship from SIM_SHIP. The ship movement is controlled with the SIM_SHIP parameters
+
+|Value|Meaning|
+|:---:|:---:|
+|0|Disabled|
+|1|Enabled|
 
 # SIMSPR Parameters
 
@@ -37240,6 +37506,16 @@ Visual odometry yaw measurement noise minimum (radians), This value will be used
 
 - Range: 0.05 1.0
 
+## VISO_QUAL_MIN: Visual odometry minimum quality
+
+*Note: This parameter is for advanced users*
+
+Visual odometry will only be sent to EKF if over this value. -1 to always send (even bad values), 0 to send if good or unknown
+
+- Units: %
+
+- Range: -1 100
+
 # VTX Parameters
 
 ## VTX_ENABLE: Is the Video Transmitter enabled or not
@@ -37277,6 +37553,7 @@ Video Transmitter Band
 |5|Low RaceBand|
 |6|1G3 Band A|
 |7|1G3 Band B|
+|8|Band X|
 
 ## VTX_FREQ: Video Transmitter Frequency
 

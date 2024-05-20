@@ -1674,11 +1674,11 @@ PTCH\_LIM\_MIN\_DEG: Minimum Pitch Angle
 Maximum pitch down angle commanded in modes with stabilized limits
 
 
-+-----------+----------+--------------+
-| Increment | Range    | Units        |
-+===========+==========+==============+
-| 10        | -90 to 0 | centidegrees |
-+-----------+----------+--------------+
++-----------+----------+---------+
+| Increment | Range    | Units   |
++===========+==========+=========+
+| 10        | -90 to 0 | degrees |
++-----------+----------+---------+
 
 
 
@@ -2788,6 +2788,268 @@ Lua Script Parameters
 ---------------------
 
 
+.. _RCK_FORCEHL:
+
+RCK\_FORCEHL: Force enable High Latency mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Automatically enables High Latency mode if not already enabled
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _RCK_PERIOD:
+
+RCK\_PERIOD: Update rate
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+When in High Latency mode\, send Rockblock updates every N seconds
+
+
++----------+---------+
+| Range    | Units   |
++==========+=========+
+| 0 to 600 | seconds |
++----------+---------+
+
+
+
+
+.. _RCK_DEBUG:
+
+RCK\_DEBUG: Display Rockblock debugging text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Sends Rockblock debug text to GCS via statustexts
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _RCK_ENABLE:
+
+RCK\_ENABLE: Enable Message transmission
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enables the Rockblock sending and recieving
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _ESRC_EXTN_THRESH:
+
+ESRC\_EXTN\_THRESH: EKF Source ExternalNav Innovation Threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+ExternalNav may be used if innovations are below this threshold
+
+
++--------+
+| Range  |
++========+
+| 0 to 1 |
++--------+
+
+
+
+
+.. _ESRC_EXTN_QUAL:
+
+ESRC\_EXTN\_QUAL: EKF Source ExternalNav Quality Threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+ExternalNav may be used if quality is above this threshold
+
+
++----------+---------+
+| Range    | Units   |
++==========+=========+
+| 0 to 100 | percent |
++----------+---------+
+
+
+
+
+.. _ESRC_FLOW_THRESH:
+
+ESRC\_FLOW\_THRESH: EKF Source OpticalFlow Innovation Threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+OpticalFlow may be used if innovations are below this threshold
+
+
++--------+
+| Range  |
++========+
+| 0 to 1 |
++--------+
+
+
+
+
+.. _ESRC_FLOW_QUAL:
+
+ESRC\_FLOW\_QUAL: EKF Source OpticalFlow Quality Threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+OpticalFlow may be used if quality is above this threshold
+
+
++----------+---------+
+| Range    | Units   |
++==========+=========+
+| 0 to 100 | percent |
++----------+---------+
+
+
+
+
+.. _ESRC_RNGFND_MAX:
+
+ESRC\_RNGFND\_MAX: EKF Source Rangefinder Max
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+OpticalFlow may be used if rangefinder distance is below this threshold
+
+
++---------+--------+
+| Range   | Units  |
++=========+========+
+| 0 to 50 | meters |
++---------+--------+
+
+
+
+
+.. _SHIP_ENABLE:
+
+SHIP\_ENABLE: Ship landing enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enable ship landing system
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _SHIP_LAND_ANGLE:
+
+SHIP\_LAND\_ANGLE: Ship landing angle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Angle from the stern of the ship for landing approach\. Use this to ensure that on a go\-around that ship superstructure and cables are avoided\. A value of zero means to approach from the rear of the ship\. A value of 90 means the landing will approach from the port \(left\) side of the ship\. A value of \-90 will mean approaching from the starboard \(right\) side of the ship\. A value of 180 will approach from the bow of the ship\. This parameter is combined with the sign of the RTL\_RADIUS parameter to determine the holdoff pattern\. If RTL\_RADIUS is positive then a clockwise loiter is performed\, if RTL\_RADIUS is negative then a counter\-clockwise loiter is used\.
+
+
++-------------+---------+
+| Range       | Units   |
++=============+=========+
+| -180 to 180 | degrees |
++-------------+---------+
+
+
+
+
+.. _SHIP_AUTO_OFS:
+
+SHIP\_AUTO\_OFS: Ship automatic offset trigger
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Settings this parameter to one triggers an automatic follow offset calculation based on current position of the vehicle and the landing target\. NOTE\: This parameter will auto\-reset to zero once the offset has been calculated\.
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Trigger  |
++-------+----------+
+
+
+
+
+.. _PLND_ALT_CUTOFF:
+
+PLND\_ALT\_CUTOFF: Precland altitude cutoff
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+The altitude \(rangefinder distance\) below which we stop using the precision landing sensor and continue landing
+
+
++---------+--------+
+| Range   | Units  |
++=========+========+
+| 0 to 20 | meters |
++---------+--------+
+
+
+
+
+.. _DIST_CUTOFF:
+
+DIST\_CUTOFF: Precland distance cutoff
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+The distance from target beyond which the target is ignored
+
+
++----------+--------+
+| Range    | Units  |
++==========+========+
+| 0 to 100 | meters |
++----------+--------+
+
+
+
+
 .. _BATT_SOC_COUNT:
 
 BATT\_SOC\_COUNT: Count of SOC estimators
@@ -3166,51 +3428,13 @@ Battery estimator coefficient3
 
 
 
-.. _RCK_FORCEHL:
+.. _RTUN_ENABLE:
 
-RCK\_FORCEHL: Force enable High Latency mode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Automatically enables High Latency mode if not already enabled
+RTUN\_ENABLE: Rover Quicktune enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _RCK_PERIOD:
-
-RCK\_PERIOD: Update rate
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-When in High Latency mode\, send Rockblock updates every N seconds
-
-
-+----------+---------+
-| Range    | Units   |
-+==========+=========+
-| 0 to 600 | seconds |
-+----------+---------+
-
-
-
-
-.. _RCK_DEBUG:
-
-RCK\_DEBUG: Display Rockblock debugging text
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Sends Rockblock debug text to GCS via statustexts
+Enable quicktune system
 
 
 +-------+----------+
@@ -3224,13 +3448,229 @@ Sends Rockblock debug text to GCS via statustexts
 
 
 
-.. _RCK_ENABLE:
+.. _RTUN_AXES:
 
-RCK\_ENABLE: Enable Message transmission
+RTUN\_AXES: Rover Quicktune axes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+axes to tune
+
+
++-----+----------+
+| Bit | Meaning  |
++=====+==========+
+| 0   | Steering |
++-----+----------+
+| 1   | Speed    |
++-----+----------+
+
+
+
+
+.. _RTUN_STR_FFRATIO:
+
+RTUN\_STR\_FFRATIO: Rover Quicktune Steering Rate FeedForward ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between measured response and FF gain\. Raise this to get a higher FF gain
+
+
++----------+
+| Range    |
++==========+
+| 0 to 1.0 |
++----------+
+
+
+
+
+.. _RTUN_STR_P_RATIO:
+
+RTUN\_STR\_P\_RATIO: Rover Quicktune Steering FF to P ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between steering FF and P gains\. Raise this to get a higher P gain\, 0 to leave P unchanged
+
+
++----------+
+| Range    |
++==========+
+| 0 to 2.0 |
++----------+
+
+
+
+
+.. _RTUN_STR_I_RATIO:
+
+RTUN\_STR\_I\_RATIO: Rover Quicktune Steering FF to I ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between steering FF and I gains\. Raise this to get a higher I gain\, 0 to leave I unchanged
+
+
++----------+
+| Range    |
++==========+
+| 0 to 2.0 |
++----------+
+
+
+
+
+.. _RTUN_SPD_FFRATIO:
+
+RTUN\_SPD\_FFRATIO: Rover Quicktune Speed FeedForward \(equivalent\) ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between measured response and CRUISE\_THROTTLE value\. Raise this to get a higher CRUISE\_THROTTLE value
+
+
++----------+
+| Range    |
++==========+
+| 0 to 1.0 |
++----------+
+
+
+
+
+.. _RTUN_SPD_P_RATIO:
+
+RTUN\_SPD\_P\_RATIO: Rover Quicktune Speed FF to P ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between speed FF and P gain\. Raise this to get a higher P gain\, 0 to leave P unchanged
+
+
++----------+
+| Range    |
++==========+
+| 0 to 2.0 |
++----------+
+
+
+
+
+.. _RTUN_SPD_I_RATIO:
+
+RTUN\_SPD\_I\_RATIO: Rover Quicktune Speed FF to I ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between speed FF and I gain\. Raise this to get a higher I gain\, 0 to leave I unchanged
+
+
++----------+
+| Range    |
++==========+
+| 0 to 2.0 |
++----------+
+
+
+
+
+.. _RTUN_AUTO_FILTER:
+
+RTUN\_AUTO\_FILTER: Rover Quicktune auto filter enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+When enabled the PID filter settings are automatically set based on INS\_GYRO\_FILTER
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _RTUN_AUTO_SAVE:
+
+RTUN\_AUTO\_SAVE: Rover Quicktune auto save
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Number of seconds after completion of tune to auto\-save\. This is useful when using a 2 position switch for quicktune
+
+
++---------+
+| Units   |
++=========+
+| seconds |
++---------+
+
+
+
+
+.. _RTUN_RC_FUNC:
+
+RTUN\_RC\_FUNC: Rover Quicktune RC function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+RCn\_OPTION number to use to control tuning stop\/start\/save
+
+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 300   | Scripting1 |
++-------+------------+
+| 301   | Scripting2 |
++-------+------------+
+| 302   | Scripting3 |
++-------+------------+
+| 303   | Scripting4 |
++-------+------------+
+| 304   | Scripting5 |
++-------+------------+
+| 305   | Scripting6 |
++-------+------------+
+| 306   | Scripting7 |
++-------+------------+
+| 307   | Scripting8 |
++-------+------------+
+
+
+
+
+.. _POI_DIST_MAX:
+
+POI\_DIST\_MAX: Mount POI distance max
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+POI\'s max distance \(in meters\) from the vehicle
+
+
++------------+
+| Range      |
++============+
+| 0 to 10000 |
++------------+
+
+
+
+
+.. _PREV_ENABLE:
+
+PREV\_ENABLE: parameter reversion enable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-Enables the Rockblock sending and recieving
+Enable parameter reversion system
 
 
 +-------+----------+
@@ -3240,6 +3680,201 @@ Enables the Rockblock sending and recieving
 +-------+----------+
 | 1     | Enabled  |
 +-------+----------+
+
+
+
+
+.. _PREV_RC_FUNC:
+
+PREV\_RC\_FUNC: param reversion RC function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+RCn\_OPTION number to used to trigger parameter reversion
+
+
+.. _DR_ENABLE:
+
+DR\_ENABLE: Deadreckoning Enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Deadreckoning Enable
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _DR_ENABLE_DIST:
+
+DR\_ENABLE\_DIST: Deadreckoning Enable Distance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Distance from home \(in meters\) beyond which the dead reckoning will be enabled
+
+
++--------+
+| Units  |
++========+
+| meters |
++--------+
+
+
+
+
+.. _DR_GPS_SACC_MAX:
+
+DR\_GPS\_SACC\_MAX: Deadreckoning GPS speed accuracy maximum threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+GPS speed accuracy maximum\, above which deadreckoning home will begin \(default is 0\.8\)\.  Lower values trigger with good GPS quality\, higher values will allow poorer GPS before triggering\. Set to 0 to disable use of GPS speed accuracy
+
+
++---------+
+| Range   |
++=========+
+| 0 to 10 |
++---------+
+
+
+
+
+.. _DR_GPS_SAT_MIN:
+
+DR\_GPS\_SAT\_MIN: Deadreckoning GPS satellite count min threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+GPS satellite count threshold below which deadreckoning home will begin \(default is 6\)\.  Higher values trigger with good GPS quality\, Lower values trigger with worse GPS quality\. Set to 0 to disable use of GPS satellite count
+
+
++---------+
+| Range   |
++=========+
+| 0 to 30 |
++---------+
+
+
+
+
+.. _DR_GPS_TRIGG_SEC:
+
+DR\_GPS\_TRIGG\_SEC: Deadreckoning GPS check trigger seconds
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+GPS checks must fail for this many seconds before dead reckoning will be triggered
+
+
++---------+
+| Units   |
++=========+
+| seconds |
++---------+
+
+
+
+
+.. _DR_FLY_ANGLE:
+
+DR\_FLY\_ANGLE: Deadreckoning Lean Angle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+lean angle \(in degrees\) during deadreckoning
+
+
++---------+---------+
+| Range   | Units   |
++=========+=========+
+| 0 to 45 | degrees |
++---------+---------+
+
+
+
+
+.. _DR_FLY_ALT_MIN:
+
+DR\_FLY\_ALT\_MIN: Deadreckoning Altitude Min
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Copter will fly at at least this altitude \(in meters\) above home during deadreckoning
+
+
++-----------+--------+
+| Range     | Units  |
++===========+========+
+| 0 to 1000 | meters |
++-----------+--------+
+
+
+
+
+.. _DR_FLY_TIMEOUT:
+
+DR\_FLY\_TIMEOUT: Deadreckoning flight timeout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Copter will attempt to switch to NEXT\_MODE after this many seconds of deadreckoning\.  If it cannot switch modes it will continue in Guided\_NoGPS\.  Set to 0 to disable timeout
+
+
++---------+
+| Units   |
++=========+
+| seconds |
++---------+
+
+
+
+
+.. _DR_NEXT_MODE:
+
+DR\_NEXT\_MODE: Deadreckoning Next Mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Copter switch to this mode after GPS recovers or DR\_FLY\_TIMEOUT has elapsed\.  Default is 6\/RTL\.  Set to \-1 to return to mode used before deadreckoning was triggered
+
+
++-------+--------------+
+| Value | Meaning      |
++=======+==============+
+| 2     | AltHold      |
++-------+--------------+
+| 3     | Auto         |
++-------+--------------+
+| 4     | Guided       |
++-------+--------------+
+| 5     | Loiter       |
++-------+--------------+
+| 6     | RTL          |
++-------+--------------+
+| 7     | Circle       |
++-------+--------------+
+| 9     | Land         |
++-------+--------------+
+| 16    | PosHold      |
++-------+--------------+
+| 17    | Brake        |
++-------+--------------+
+| 20    | Guided_NoGPS |
++-------+--------------+
+| 21    | Smart_RTL    |
++-------+--------------+
+| 27    | Auto RTL     |
++-------+--------------+
 
 
 
@@ -3495,206 +4130,70 @@ Additional options\. When the Two Position Switch option is enabled then a high 
 
 
 
-.. _DR_ENABLE:
+.. _WINCH_RATE_UP:
 
-DR\_ENABLE: Deadreckoning Enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+WINCH\_RATE\_UP: WinchControl Rate Up
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-Deadreckoning Enable
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _DR_ENABLE_DIST:
-
-DR\_ENABLE\_DIST: Deadreckoning Enable Distance
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Distance from home \(in meters\) beyond which the dead reckoning will be enabled
-
-
-+--------+
-| Units  |
-+========+
-| meters |
-+--------+
-
-
-
-
-.. _DR_GPS_SACC_MAX:
-
-DR\_GPS\_SACC\_MAX: Deadreckoning GPS speed accuracy maximum threshold
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-GPS speed accuracy maximum\, above which deadreckoning home will begin \(default is 0\.8\)\.  Lower values trigger with good GPS quality\, higher values will allow poorer GPS before triggering\. Set to 0 to disable use of GPS speed accuracy
-
-
-+---------+
-| Range   |
-+=========+
-| 0 to 10 |
-+---------+
-
-
-
-
-.. _DR_GPS_SAT_MIN:
-
-DR\_GPS\_SAT\_MIN: Deadreckoning GPS satellite count min threshold
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-GPS satellite count threshold below which deadreckoning home will begin \(default is 6\)\.  Higher values trigger with good GPS quality\, Lower values trigger with worse GPS quality\. Set to 0 to disable use of GPS satellite count
-
-
-+---------+
-| Range   |
-+=========+
-| 0 to 30 |
-+---------+
-
-
-
-
-.. _DR_GPS_TRIGG_SEC:
-
-DR\_GPS\_TRIGG\_SEC: Deadreckoning GPS check trigger seconds
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-GPS checks must fail for this many seconds before dead reckoning will be triggered
-
-
-+---------+
-| Units   |
-+=========+
-| seconds |
-+---------+
-
-
-
-
-.. _DR_FLY_ANGLE:
-
-DR\_FLY\_ANGLE: Deadreckoning Lean Angle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-lean angle \(in degrees\) during deadreckoning
-
-
-+---------+---------+
-| Range   | Units   |
-+=========+=========+
-| 0 to 45 | degrees |
-+---------+---------+
-
-
-
-
-.. _DR_FLY_ALT_MIN:
-
-DR\_FLY\_ALT\_MIN: Deadreckoning Altitude Min
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Copter will fly at at least this altitude \(in meters\) above home during deadreckoning
-
-
-+-----------+--------+
-| Range     | Units  |
-+===========+========+
-| 0 to 1000 | meters |
-+-----------+--------+
-
-
-
-
-.. _DR_FLY_TIMEOUT:
-
-DR\_FLY\_TIMEOUT: Deadreckoning flight timeout
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Copter will attempt to switch to NEXT\_MODE after this many seconds of deadreckoning\.  If it cannot switch modes it will continue in Guided\_NoGPS\.  Set to 0 to disable timeout
-
-
-+---------+
-| Units   |
-+=========+
-| seconds |
-+---------+
-
-
-
-
-.. _DR_NEXT_MODE:
-
-DR\_NEXT\_MODE: Deadreckoning Next Mode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Copter switch to this mode after GPS recovers or DR\_FLY\_TIMEOUT has elapsed\.  Default is 6\/RTL\.  Set to \-1 to return to mode used before deadreckoning was triggered
-
-
-+-------+--------------+
-| Value | Meaning      |
-+=======+==============+
-| 2     | AltHold      |
-+-------+--------------+
-| 3     | Auto         |
-+-------+--------------+
-| 4     | Guided       |
-+-------+--------------+
-| 5     | Loiter       |
-+-------+--------------+
-| 6     | RTL          |
-+-------+--------------+
-| 7     | Circle       |
-+-------+--------------+
-| 9     | Land         |
-+-------+--------------+
-| 16    | PosHold      |
-+-------+--------------+
-| 17    | Brake        |
-+-------+--------------+
-| 20    | Guided_NoGPS |
-+-------+--------------+
-| 21    | Smart_RTL    |
-+-------+--------------+
-| 27    | Auto RTL     |
-+-------+--------------+
-
-
-
-
-.. _POI_DIST_MAX:
-
-POI\_DIST\_MAX: Mount POI distance max
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-POI\'s max distance \(in meters\) from the vehicle
+Maximum rate when retracting line
 
 
 +------------+
 | Range      |
 +============+
-| 0 to 10000 |
+| 0.1 to 5.0 |
 +------------+
+
+
+
+
+.. _WINCH_RATE_DN:
+
+WINCH\_RATE\_DN: WinchControl Rate Down
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Maximum rate when releasing line
+
+
++------------+
+| Range      |
++============+
+| 0.1 to 5.0 |
++------------+
+
+
+
+
+.. _WINCH_RC_FUNC:
+
+WINCH\_RC\_FUNC: Winch Rate Control RC function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+RCn\_OPTION number to use to control winch rate
+
+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 300   | Scripting1 |
++-------+------------+
+| 301   | Scripting2 |
++-------+------------+
+| 302   | Scripting3 |
++-------+------------+
+| 303   | Scripting4 |
++-------+------------+
+| 304   | Scripting5 |
++-------+------------+
+| 305   | Scripting6 |
++-------+------------+
+| 306   | Scripting7 |
++-------+------------+
+| 307   | Scripting8 |
++-------+------------+
 
 
 
@@ -3811,379 +4310,6 @@ sendfile is an offloading mechanism for faster file download\. If this is non\-z
 +===============+
 | 0 to 10000000 |
 +---------------+
-
-
-
-
-.. _SHIP_ENABLE:
-
-SHIP\_ENABLE: Ship landing enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable ship landing system
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _SHIP_LAND_ANGLE:
-
-SHIP\_LAND\_ANGLE: Ship landing angle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Angle from the stern of the ship for landing approach\. Use this to ensure that on a go\-around that ship superstructure and cables are avoided\. A value of zero means to approach from the rear of the ship\. A value of 90 means the landing will approach from the port \(left\) side of the ship\. A value of \-90 will mean approaching from the starboard \(right\) side of the ship\. A value of 180 will approach from the bow of the ship\. This parameter is combined with the sign of the RTL\_RADIUS parameter to determine the holdoff pattern\. If RTL\_RADIUS is positive then a clockwise loiter is performed\, if RTL\_RADIUS is negative then a counter\-clockwise loiter is used\.
-
-
-+-------------+---------+
-| Range       | Units   |
-+=============+=========+
-| -180 to 180 | degrees |
-+-------------+---------+
-
-
-
-
-.. _SHIP_AUTO_OFS:
-
-SHIP\_AUTO\_OFS: Ship automatic offset trigger
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Settings this parameter to one triggers an automatic follow offset calculation based on current position of the vehicle and the landing target\. NOTE\: This parameter will auto\-reset to zero once the offset has been calculated\.
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Trigger  |
-+-------+----------+
-
-
-
-
-.. _PREV_ENABLE:
-
-PREV\_ENABLE: parameter reversion enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable parameter reversion system
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _PREV_RC_FUNC:
-
-PREV\_RC\_FUNC: param reversion RC function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-RCn\_OPTION number to used to trigger parameter reversion
-
-
-.. _RTUN_ENABLE:
-
-RTUN\_ENABLE: Rover Quicktune enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable quicktune system
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _RTUN_AXES:
-
-RTUN\_AXES: Rover Quicktune axes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-axes to tune
-
-
-+-----+----------+
-| Bit | Meaning  |
-+=====+==========+
-| 0   | Steering |
-+-----+----------+
-| 1   | Speed    |
-+-----+----------+
-
-
-
-
-.. _RTUN_STR_FFRATIO:
-
-RTUN\_STR\_FFRATIO: Rover Quicktune Steering Rate FeedForward ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between measured response and FF gain\. Raise this to get a higher FF gain
-
-
-+----------+
-| Range    |
-+==========+
-| 0 to 1.0 |
-+----------+
-
-
-
-
-.. _RTUN_STR_P_RATIO:
-
-RTUN\_STR\_P\_RATIO: Rover Quicktune Steering FF to P ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between steering FF and P gains\. Raise this to get a higher P gain\, 0 to leave P unchanged
-
-
-+----------+
-| Range    |
-+==========+
-| 0 to 2.0 |
-+----------+
-
-
-
-
-.. _RTUN_STR_I_RATIO:
-
-RTUN\_STR\_I\_RATIO: Rover Quicktune Steering FF to I ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between steering FF and I gains\. Raise this to get a higher I gain\, 0 to leave I unchanged
-
-
-+----------+
-| Range    |
-+==========+
-| 0 to 2.0 |
-+----------+
-
-
-
-
-.. _RTUN_SPD_FFRATIO:
-
-RTUN\_SPD\_FFRATIO: Rover Quicktune Speed FeedForward \(equivalent\) ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between measured response and CRUISE\_THROTTLE value\. Raise this to get a higher CRUISE\_THROTTLE value
-
-
-+----------+
-| Range    |
-+==========+
-| 0 to 1.0 |
-+----------+
-
-
-
-
-.. _RTUN_SPD_P_RATIO:
-
-RTUN\_SPD\_P\_RATIO: Rover Quicktune Speed FF to P ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between speed FF and P gain\. Raise this to get a higher P gain\, 0 to leave P unchanged
-
-
-+----------+
-| Range    |
-+==========+
-| 0 to 2.0 |
-+----------+
-
-
-
-
-.. _RTUN_SPD_I_RATIO:
-
-RTUN\_SPD\_I\_RATIO: Rover Quicktune Speed FF to I ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between speed FF and I gain\. Raise this to get a higher I gain\, 0 to leave I unchanged
-
-
-+----------+
-| Range    |
-+==========+
-| 0 to 2.0 |
-+----------+
-
-
-
-
-.. _RTUN_AUTO_FILTER:
-
-RTUN\_AUTO\_FILTER: Rover Quicktune auto filter enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-When enabled the PID filter settings are automatically set based on INS\_GYRO\_FILTER
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _RTUN_AUTO_SAVE:
-
-RTUN\_AUTO\_SAVE: Rover Quicktune auto save
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Number of seconds after completion of tune to auto\-save\. This is useful when using a 2 position switch for quicktune
-
-
-+---------+
-| Units   |
-+=========+
-| seconds |
-+---------+
-
-
-
-
-.. _RTUN_RC_FUNC:
-
-RTUN\_RC\_FUNC: Rover Quicktune RC function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-RCn\_OPTION number to use to control tuning stop\/start\/save
-
-
-+-------+------------+
-| Value | Meaning    |
-+=======+============+
-| 300   | Scripting1 |
-+-------+------------+
-| 301   | Scripting2 |
-+-------+------------+
-| 302   | Scripting3 |
-+-------+------------+
-| 303   | Scripting4 |
-+-------+------------+
-| 304   | Scripting5 |
-+-------+------------+
-| 305   | Scripting6 |
-+-------+------------+
-| 306   | Scripting7 |
-+-------+------------+
-| 307   | Scripting8 |
-+-------+------------+
-
-
-
-
-.. _WINCH_RATE_UP:
-
-WINCH\_RATE\_UP: WinchControl Rate Up
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Maximum rate when retracting line
-
-
-+------------+
-| Range      |
-+============+
-| 0.1 to 5.0 |
-+------------+
-
-
-
-
-.. _WINCH_RATE_DN:
-
-WINCH\_RATE\_DN: WinchControl Rate Down
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Maximum rate when releasing line
-
-
-+------------+
-| Range      |
-+============+
-| 0.1 to 5.0 |
-+------------+
-
-
-
-
-.. _WINCH_RC_FUNC:
-
-WINCH\_RC\_FUNC: Winch Rate Control RC function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-RCn\_OPTION number to use to control winch rate
-
-
-+-------+------------+
-| Value | Meaning    |
-+=======+============+
-| 300   | Scripting1 |
-+-------+------------+
-| 301   | Scripting2 |
-+-------+------------+
-| 302   | Scripting3 |
-+-------+------------+
-| 303   | Scripting4 |
-+-------+------------+
-| 304   | Scripting5 |
-+-------+------------+
-| 305   | Scripting6 |
-+-------+------------+
-| 306   | Scripting7 |
-+-------+------------+
-| 307   | Scripting8 |
-+-------+------------+
 
 
 
@@ -4741,13 +4867,13 @@ Number of tricks which can be selected over the range of the trik selection RC c
 
 
 
-.. _BATT_ANX_ENABLE:
+.. _ESC_HW_ENABLE:
 
-BATT\_ANX\_ENABLE: Enable ANX battery support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ESC\_HW\_ENABLE: Hobbywing ESC Enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-Enable ANX battery support
+Enable Hobbywing ESC telemetry
 
 
 +-------+----------+
@@ -4761,211 +4887,38 @@ Enable ANX battery support
 
 
 
-.. _BATT_ANX_CANDRV:
+.. _ESC_HW_POLES:
 
-BATT\_ANX\_CANDRV: Set ANX CAN driver
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Set ANX CAN driver
+ESC\_HW\_POLES: Hobbywing ESC motor poles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-+-------+--------------+
-| Value | Meaning      |
-+=======+==============+
-| 0     | None         |
-+-------+--------------+
-| 1     | 1stCANDriver |
-+-------+--------------+
-| 2     | 2ndCanDriver |
-+-------+--------------+
-
-
-
-
-.. _BATT_ANX_INDEX:
-
-BATT\_ANX\_INDEX: ANX CAN battery index
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-ANX CAN battery index
+Number of motor poles for eRPM scaling
 
 
 +---------+
 | Range   |
 +=========+
-| 1 to 10 |
+| 1 to 50 |
 +---------+
 
 
 
 
-.. _BATT_ANX_OPTIONS:
+.. _ESC_HW_OFS:
 
-BATT\_ANX\_OPTIONS: ANX CAN battery options
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ESC\_HW\_OFS: Hobbywing ESC motor offset
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| *Note: This parameter is for advanced users*
 
-ANX CAN battery options
+Motor number offset of first ESC
 
 
-+-----+--------------+
-| Bit | Meaning      |
-+=====+==============+
-| 0   | LogAllFrames |
-+-----+--------------+
-
-
-
-
-.. _EFI_DLA_ENABLE:
-
-EFI\_DLA\_ENABLE: EFI DLA enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable EFI DLA driver
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _EFI_DLA_LPS:
-
-EFI\_DLA\_LPS: EFI DLA fuel scale
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-EFI DLA litres of fuel per second of injection time
-
-
-+--------------+--------+
-| Range        | Units  |
-+==============+========+
-| 0.00001 to 1 | litres |
-+--------------+--------+
-
-
-
-
-.. _EFI_H6K_ENABLE:
-
-EFI\_H6K\_ENABLE: Enable Halo6000 EFI driver
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable Halo6000 EFI driver
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _EFI_H6K_CANDRV:
-
-EFI\_H6K\_CANDRV: Halo6000 CAN driver
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Halo6000 CAN driver\. Use 1 for first CAN scripting driver\, 2 for 2nd driver
-
-
-+-------+-----------+
-| Value | Meaning   |
-+=======+===========+
-| 0     | Disabled  |
-+-------+-----------+
-| 1     | FirstCAN  |
-+-------+-----------+
-| 2     | SecondCAN |
-+-------+-----------+
-
-
-
-
-.. _EFI_H6K_START_FN:
-
-EFI\_H6K\_START\_FN: Halo6000 start auxilliary function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-The RC auxilliary function number for start\/stop of the generator\. Zero to disable start function
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 300   | 300      |
-+-------+----------+
-| 301   | 301      |
-+-------+----------+
-| 302   | 302      |
-+-------+----------+
-| 303   | 303      |
-+-------+----------+
-| 304   | 304      |
-+-------+----------+
-| 305   | 305      |
-+-------+----------+
-| 306   | 306      |
-+-------+----------+
-| 307   | 307      |
-+-------+----------+
-
-
-
-
-.. _EFI_H6K_TELEM_RT:
-
-EFI\_H6K\_TELEM\_RT: Halo6000 telemetry rate
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-The rate that additional generator telemetry is sent
-
-
-+-------+
-| Units |
-+=======+
-| hertz |
-+-------+
-
-
-
-
-.. _EFI_H6K_FUELTOT:
-
-EFI\_H6K\_FUELTOT: Halo6000 total fuel capacity
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-The capacity of the tank in litres
-
-
-+--------+
-| Units  |
-+========+
-| litres |
-+--------+
++---------+
+| Range   |
++=========+
+| 0 to 31 |
++---------+
 
 
 
@@ -5275,165 +5228,6 @@ SkyPower EFI restart time\. If engine should be running and it has stopped for t
 
 
 
-.. _EFI_SVF_ENABLE:
-
-EFI\_SVF\_ENABLE: Generator SVFFI enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable SVFFI generator support
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _EFI_SVF_ARMCHECK:
-
-EFI\_SVF\_ARMCHECK: Generator SVFFI arming check
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Check for Generator ARM state before arming
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _ESC_HW_ENABLE:
-
-ESC\_HW\_ENABLE: Hobbywing ESC Enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable Hobbywing ESC telemetry
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _ESC_HW_POLES:
-
-ESC\_HW\_POLES: Hobbywing ESC motor poles
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Number of motor poles for eRPM scaling
-
-
-+---------+
-| Range   |
-+=========+
-| 1 to 50 |
-+---------+
-
-
-
-
-.. _ESC_HW_OFS:
-
-ESC\_HW\_OFS: Hobbywing ESC motor offset
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Motor number offset of first ESC
-
-
-+---------+
-| Range   |
-+=========+
-| 0 to 31 |
-+---------+
-
-
-
-
-.. _EFI_INF_ENABLE:
-
-EFI\_INF\_ENABLE: EFI INF\-Inject enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable EFI INF\-Inject driver
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _DJIR_DEBUG:
-
-DJIR\_DEBUG: DJIRS2 debug
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-| *Note: This parameter is for advanced users*
-
-Enable DJIRS2 debug
-
-
-+-------+---------------------------------+
-| Value | Meaning                         |
-+=======+=================================+
-| 0     | Disabled                        |
-+-------+---------------------------------+
-| 1     | Enabled                         |
-+-------+---------------------------------+
-| 2     | Enabled with attitude reporting |
-+-------+---------------------------------+
-
-
-
-
-.. _DJIR_UPSIDEDOWN:
-
-DJIR\_UPSIDEDOWN: DJIRS2 upside down
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-DJIRS2 upside down
-
-
-+-------+---------------+
-| Value | Meaning       |
-+=======+===============+
-| 0     | Right side up |
-+-------+---------------+
-| 1     | Upside down   |
-+-------+---------------+
-
-
-
-
 .. _VIEP_DEBUG:
 
 VIEP\_DEBUG: ViewPro debug
@@ -5587,6 +5381,385 @@ ViewPro Zoom Times Max
 +---------+
 
 
+
+
+.. _EFI_H6K_ENABLE:
+
+EFI\_H6K\_ENABLE: Enable Halo6000 EFI driver
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enable Halo6000 EFI driver
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _EFI_H6K_CANDRV:
+
+EFI\_H6K\_CANDRV: Halo6000 CAN driver
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Halo6000 CAN driver\. Use 1 for first CAN scripting driver\, 2 for 2nd driver
+
+
++-------+-----------+
+| Value | Meaning   |
++=======+===========+
+| 0     | Disabled  |
++-------+-----------+
+| 1     | FirstCAN  |
++-------+-----------+
+| 2     | SecondCAN |
++-------+-----------+
+
+
+
+
+.. _EFI_H6K_START_FN:
+
+EFI\_H6K\_START\_FN: Halo6000 start auxilliary function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+The RC auxilliary function number for start\/stop of the generator\. Zero to disable start function
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 300   | 300      |
++-------+----------+
+| 301   | 301      |
++-------+----------+
+| 302   | 302      |
++-------+----------+
+| 303   | 303      |
++-------+----------+
+| 304   | 304      |
++-------+----------+
+| 305   | 305      |
++-------+----------+
+| 306   | 306      |
++-------+----------+
+| 307   | 307      |
++-------+----------+
+
+
+
+
+.. _EFI_H6K_TELEM_RT:
+
+EFI\_H6K\_TELEM\_RT: Halo6000 telemetry rate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+The rate that additional generator telemetry is sent
+
+
++-------+
+| Units |
++=======+
+| hertz |
++-------+
+
+
+
+
+.. _EFI_H6K_FUELTOT:
+
+EFI\_H6K\_FUELTOT: Halo6000 total fuel capacity
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+The capacity of the tank in litres
+
+
++--------+
+| Units  |
++========+
+| litres |
++--------+
+
+
+
+
+.. _EFI_DLA_ENABLE:
+
+EFI\_DLA\_ENABLE: EFI DLA enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enable EFI DLA driver
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _EFI_DLA_LPS:
+
+EFI\_DLA\_LPS: EFI DLA fuel scale
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+EFI DLA litres of fuel per second of injection time
+
+
++--------------+--------+
+| Range        | Units  |
++==============+========+
+| 0.00001 to 1 | litres |
++--------------+--------+
+
+
+
+
+.. _DJIR_DEBUG:
+
+DJIR\_DEBUG: DJIRS2 debug
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Enable DJIRS2 debug
+
+
++-------+---------------------------------+
+| Value | Meaning                         |
++=======+=================================+
+| 0     | Disabled                        |
++-------+---------------------------------+
+| 1     | Enabled                         |
++-------+---------------------------------+
+| 2     | Enabled with attitude reporting |
++-------+---------------------------------+
+
+
+
+
+.. _DJIR_UPSIDEDOWN:
+
+DJIR\_UPSIDEDOWN: DJIRS2 upside down
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+DJIRS2 upside down
+
+
++-------+---------------+
+| Value | Meaning       |
++=======+===============+
+| 0     | Right side up |
++-------+---------------+
+| 1     | Upside down   |
++-------+---------------+
+
+
+
+
+.. _BATT_ANX_ENABLE:
+
+BATT\_ANX\_ENABLE: Enable ANX battery support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enable ANX battery support
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _BATT_ANX_CANDRV:
+
+BATT\_ANX\_CANDRV: Set ANX CAN driver
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Set ANX CAN driver
+
+
++-------+--------------+
+| Value | Meaning      |
++=======+==============+
+| 0     | None         |
++-------+--------------+
+| 1     | 1stCANDriver |
++-------+--------------+
+| 2     | 2ndCanDriver |
++-------+--------------+
+
+
+
+
+.. _BATT_ANX_INDEX:
+
+BATT\_ANX\_INDEX: ANX CAN battery index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+ANX CAN battery index
+
+
++---------+
+| Range   |
++=========+
+| 1 to 10 |
++---------+
+
+
+
+
+.. _BATT_ANX_OPTIONS:
+
+BATT\_ANX\_OPTIONS: ANX CAN battery options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+ANX CAN battery options
+
+
++-----+--------------+
+| Bit | Meaning      |
++=====+==============+
+| 0   | LogAllFrames |
++-----+--------------+
+
+
+
+
+.. _EFI_INF_ENABLE:
+
+EFI\_INF\_ENABLE: EFI INF\-Inject enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enable EFI INF\-Inject driver
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _EFI_SVF_ENABLE:
+
+EFI\_SVF\_ENABLE: Generator SVFFI enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enable SVFFI generator support
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _EFI_SVF_ARMCHECK:
+
+EFI\_SVF\_ARMCHECK: Generator SVFFI arming check
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Check for Generator ARM state before arming
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _TOFSENSE_S1_PRX:
+
+TOFSENSE\_S1\_PRX: TOFSENSE\-M to be used as Proximity sensor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Set 0 if sensor is to be used as a 1\-D rangefinder \(minimum of all distances will be sent\, typically used for height detection\)\. Set 1 if it should be used as a 3\-D proximity device \(Eg\. Obstacle Avoidance\)
+
+
++-------+-------------------------+
+| Value | Meaning                 |
++=======+=========================+
+| 0     | Set as Rangefinder      |
++-------+-------------------------+
+| 1     | Set as Proximity sensor |
++-------+-------------------------+
+
+
+
+
+.. _TOFSENSE_S1_SP:
+
+TOFSENSE\_S1\_SP: TOFSENSE\-M serial port config
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+UART instance sensor is connected to\. Set 1 if sensor is connected to the port with fist SERIALx\_PROTOCOL \= 28\. 
+
+
++--------+
+| Range  |
++========+
+| 1 to 4 |
++--------+
+
+
+
+
+.. _TOFSENSE_S1_BR:
+
+TOFSENSE\_S1\_BR: TOFSENSE\-M serial port baudrate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Serial Port baud rate\. Sensor baud rate can be changed from Nassistant software
 
 
 .. _TOFSENSE_PRX:
@@ -5753,53 +5926,6 @@ Third TOFSENSE\-M sensor ID\. This cannot be 0\. You can change ID of sensor fro
 +----------+
 
 
-
-
-.. _TOFSENSE_S1_PRX:
-
-TOFSENSE\_S1\_PRX: TOFSENSE\-M to be used as Proximity sensor
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Set 0 if sensor is to be used as a 1\-D rangefinder \(minimum of all distances will be sent\, typically used for height detection\)\. Set 1 if it should be used as a 3\-D proximity device \(Eg\. Obstacle Avoidance\)
-
-
-+-------+-------------------------+
-| Value | Meaning                 |
-+=======+=========================+
-| 0     | Set as Rangefinder      |
-+-------+-------------------------+
-| 1     | Set as Proximity sensor |
-+-------+-------------------------+
-
-
-
-
-.. _TOFSENSE_S1_SP:
-
-TOFSENSE\_S1\_SP: TOFSENSE\-M serial port config
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-UART instance sensor is connected to\. Set 1 if sensor is connected to the port with fist SERIALx\_PROTOCOL \= 28\. 
-
-
-+--------+
-| Range  |
-+========+
-| 1 to 4 |
-+--------+
-
-
-
-
-.. _TOFSENSE_S1_BR:
-
-TOFSENSE\_S1\_BR: TOFSENSE\-M serial port baudrate
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Serial Port baud rate\. Sensor baud rate can be changed from Nassistant software
 
 
 
@@ -7249,6 +7375,27 @@ Compass magnetic field strength error threshold vs earth magnetic model\.  X and
 +==========+============+
 | 0 to 500 | milligauss |
 +----------+------------+
+
+
+
+
+.. _ARMING_CRSDP_IGN:
+
+ARMING\_CRSDP\_IGN: Disable CrashDump Arming check
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Must have value \"1\" if crashdump data is present on the system\, or a prearm failure will be raised\.  Do not set this parameter unless the risks of doing so are fully understood\.  The presence of a crash dump means that the firmware currently installed has suffered a critical software failure which resulted in the autopilot immediately rebooting\.  The crashdump file gives diagnostic information which can help in finding the issue\, please contact the ArduPIlot support team\.  If this crashdump data is present\, the vehicle is likely unsafe to fly\.  Check the ArduPilot documentation for more details\.
+
+
++-------+-------------------------------------+
+| Value | Meaning                             |
++=======+=====================================+
+| 0     | Crash Dump arming check active      |
++-------+-------------------------------------+
+| 1     | Crash Dump arming check deactivated |
++-------+-------------------------------------+
 
 
 
@@ -23377,6 +23524,26 @@ This sets the amount of storage in kilobytes reserved on the microsd card in mis
 
 
 
+.. _BRD_SD_FENCE:
+
+BRD\_SD\_FENCE:  SDCard Fence size
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+| *Note: Reboot required after change*
+
+This sets the amount of storage in kilobytes reserved on the microsd card in fence\.stg for fence storage\.
+
+
++---------+
+| Range   |
++=========+
+| 0 to 64 |
++---------+
+
+
+
+
 .. _BRD_IO_DSHOT:
 
 BRD\_IO\_DSHOT: Load DShot FW on IO
@@ -24237,6 +24404,8 @@ Auxiliary RC Options function executed on pin change
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -24444,6 +24613,8 @@ Auxiliary RC Options function executed on pin change
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -24653,6 +24824,8 @@ Auxiliary RC Options function executed on pin change
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -24860,6 +25033,8 @@ Auxiliary RC Options function executed on pin change
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -25656,31 +25831,31 @@ CAN\_D1\_PROTOCOL: Enable use of specific protocol over virtual driver
 Enabling this option starts selected protocol that will use this virtual driver
 
 
-+-------+-----------------+
-| Value | Meaning         |
-+=======+=================+
-| 0     | Disabled        |
-+-------+-----------------+
-| 1     | DroneCAN        |
-+-------+-----------------+
-| 4     | PiccoloCAN      |
-+-------+-----------------+
-| 6     | EFI_NWPMU       |
-+-------+-----------------+
-| 7     | USD1            |
-+-------+-----------------+
-| 8     | KDECAN          |
-+-------+-----------------+
-| 10    | Scripting       |
-+-------+-----------------+
-| 11    | Benewake        |
-+-------+-----------------+
-| 12    | Scripting2      |
-+-------+-----------------+
-| 13    | TOFSenseP       |
-+-------+-----------------+
-| 14    | NanoRadar_NRA24 |
-+-------+-----------------+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 0     | Disabled   |
++-------+------------+
+| 1     | DroneCAN   |
++-------+------------+
+| 4     | PiccoloCAN |
++-------+------------+
+| 6     | EFI_NWPMU  |
++-------+------------+
+| 7     | USD1       |
++-------+------------+
+| 8     | KDECAN     |
++-------+------------+
+| 10    | Scripting  |
++-------+------------+
+| 11    | Benewake   |
++-------+------------+
+| 12    | Scripting2 |
++-------+------------+
+| 13    | TOFSenseP  |
++-------+------------+
+| 14    | NanoRadar  |
++-------+------------+
 
 
 
@@ -25696,23 +25871,23 @@ CAN\_D1\_PROTOCOL2: Secondary protocol with 11 bit CAN addressing
 Secondary protocol with 11 bit CAN addressing
 
 
-+-------+-----------------+
-| Value | Meaning         |
-+=======+=================+
-| 0     | Disabled        |
-+-------+-----------------+
-| 7     | USD1            |
-+-------+-----------------+
-| 10    | Scripting       |
-+-------+-----------------+
-| 11    | Benewake        |
-+-------+-----------------+
-| 12    | Scripting2      |
-+-------+-----------------+
-| 13    | TOFSenseP       |
-+-------+-----------------+
-| 14    | NanoRadar_NRA24 |
-+-------+-----------------+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 0     | Disabled   |
++-------+------------+
+| 7     | USD1       |
++-------+------------+
+| 10    | Scripting  |
++-------+------------+
+| 11    | Benewake   |
++-------+------------+
+| 12    | Scripting2 |
++-------+------------+
+| 13    | TOFSenseP  |
++-------+------------+
+| 14    | NanoRadar  |
++-------+------------+
 
 
 
@@ -27031,31 +27206,31 @@ CAN\_D2\_PROTOCOL: Enable use of specific protocol over virtual driver
 Enabling this option starts selected protocol that will use this virtual driver
 
 
-+-------+-----------------+
-| Value | Meaning         |
-+=======+=================+
-| 0     | Disabled        |
-+-------+-----------------+
-| 1     | DroneCAN        |
-+-------+-----------------+
-| 4     | PiccoloCAN      |
-+-------+-----------------+
-| 6     | EFI_NWPMU       |
-+-------+-----------------+
-| 7     | USD1            |
-+-------+-----------------+
-| 8     | KDECAN          |
-+-------+-----------------+
-| 10    | Scripting       |
-+-------+-----------------+
-| 11    | Benewake        |
-+-------+-----------------+
-| 12    | Scripting2      |
-+-------+-----------------+
-| 13    | TOFSenseP       |
-+-------+-----------------+
-| 14    | NanoRadar_NRA24 |
-+-------+-----------------+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 0     | Disabled   |
++-------+------------+
+| 1     | DroneCAN   |
++-------+------------+
+| 4     | PiccoloCAN |
++-------+------------+
+| 6     | EFI_NWPMU  |
++-------+------------+
+| 7     | USD1       |
++-------+------------+
+| 8     | KDECAN     |
++-------+------------+
+| 10    | Scripting  |
++-------+------------+
+| 11    | Benewake   |
++-------+------------+
+| 12    | Scripting2 |
++-------+------------+
+| 13    | TOFSenseP  |
++-------+------------+
+| 14    | NanoRadar  |
++-------+------------+
 
 
 
@@ -27071,23 +27246,23 @@ CAN\_D2\_PROTOCOL2: Secondary protocol with 11 bit CAN addressing
 Secondary protocol with 11 bit CAN addressing
 
 
-+-------+-----------------+
-| Value | Meaning         |
-+=======+=================+
-| 0     | Disabled        |
-+-------+-----------------+
-| 7     | USD1            |
-+-------+-----------------+
-| 10    | Scripting       |
-+-------+-----------------+
-| 11    | Benewake        |
-+-------+-----------------+
-| 12    | Scripting2      |
-+-------+-----------------+
-| 13    | TOFSenseP       |
-+-------+-----------------+
-| 14    | NanoRadar_NRA24 |
-+-------+-----------------+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 0     | Disabled   |
++-------+------------+
+| 7     | USD1       |
++-------+------------+
+| 10    | Scripting  |
++-------+------------+
+| 11    | Benewake   |
++-------+------------+
+| 12    | Scripting2 |
++-------+------------+
+| 13    | TOFSenseP  |
++-------+------------+
+| 14    | NanoRadar  |
++-------+------------+
 
 
 
@@ -28406,31 +28581,31 @@ CAN\_D3\_PROTOCOL: Enable use of specific protocol over virtual driver
 Enabling this option starts selected protocol that will use this virtual driver
 
 
-+-------+-----------------+
-| Value | Meaning         |
-+=======+=================+
-| 0     | Disabled        |
-+-------+-----------------+
-| 1     | DroneCAN        |
-+-------+-----------------+
-| 4     | PiccoloCAN      |
-+-------+-----------------+
-| 6     | EFI_NWPMU       |
-+-------+-----------------+
-| 7     | USD1            |
-+-------+-----------------+
-| 8     | KDECAN          |
-+-------+-----------------+
-| 10    | Scripting       |
-+-------+-----------------+
-| 11    | Benewake        |
-+-------+-----------------+
-| 12    | Scripting2      |
-+-------+-----------------+
-| 13    | TOFSenseP       |
-+-------+-----------------+
-| 14    | NanoRadar_NRA24 |
-+-------+-----------------+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 0     | Disabled   |
++-------+------------+
+| 1     | DroneCAN   |
++-------+------------+
+| 4     | PiccoloCAN |
++-------+------------+
+| 6     | EFI_NWPMU  |
++-------+------------+
+| 7     | USD1       |
++-------+------------+
+| 8     | KDECAN     |
++-------+------------+
+| 10    | Scripting  |
++-------+------------+
+| 11    | Benewake   |
++-------+------------+
+| 12    | Scripting2 |
++-------+------------+
+| 13    | TOFSenseP  |
++-------+------------+
+| 14    | NanoRadar  |
++-------+------------+
 
 
 
@@ -28446,23 +28621,23 @@ CAN\_D3\_PROTOCOL2: Secondary protocol with 11 bit CAN addressing
 Secondary protocol with 11 bit CAN addressing
 
 
-+-------+-----------------+
-| Value | Meaning         |
-+=======+=================+
-| 0     | Disabled        |
-+-------+-----------------+
-| 7     | USD1            |
-+-------+-----------------+
-| 10    | Scripting       |
-+-------+-----------------+
-| 11    | Benewake        |
-+-------+-----------------+
-| 12    | Scripting2      |
-+-------+-----------------+
-| 13    | TOFSenseP       |
-+-------+-----------------+
-| 14    | NanoRadar_NRA24 |
-+-------+-----------------+
++-------+------------+
+| Value | Meaning    |
++=======+============+
+| 0     | Disabled   |
++-------+------------+
+| 7     | USD1       |
++-------+------------+
+| 10    | Scripting  |
++-------+------------+
+| 11    | Benewake   |
++-------+------------+
+| 12    | Scripting2 |
++-------+------------+
+| 13    | TOFSenseP  |
++-------+------------+
+| 14    | NanoRadar  |
++-------+------------+
 
 
 
@@ -32595,6 +32770,24 @@ External AHRS sensors bitmask
 +-----+---------+
 | 3   | Compass |
 +-----+---------+
+
+
+
+
+.. _EAHRS_LOG_RATE:
+
+EAHRS\_LOG\_RATE: AHRS logging rate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Logging rate for EARHS devices
+
+
++-------+
+| Units |
++=======+
+| hertz |
++-------+
 
 
 
@@ -38411,21 +38604,25 @@ GPS\_DRV\_OPTIONS: driver options
 Additional backend specific options
 
 
-+-----+---------------------------------------------------------+
-| Bit | Meaning                                                 |
-+=====+=========================================================+
-| 0   | Use UART2 for moving baseline on ublox                  |
-+-----+---------------------------------------------------------+
-| 1   | Use base station for GPS yaw on SBF                     |
-+-----+---------------------------------------------------------+
-| 2   | Use baudrate 115200                                     |
-+-----+---------------------------------------------------------+
-| 3   | Use dedicated CAN port b/w GPSes for moving baseline    |
-+-----+---------------------------------------------------------+
-| 4   | Use ellipsoid height instead of AMSL                    |
-+-----+---------------------------------------------------------+
-| 5   | Override GPS satellite health of L5 band from L1 health |
-+-----+---------------------------------------------------------+
++-----+-----------------------------------------------------------------------------+
+| Bit | Meaning                                                                     |
++=====+=============================================================================+
+| 0   | Use UART2 for moving baseline on ublox                                      |
++-----+-----------------------------------------------------------------------------+
+| 1   | Use base station for GPS yaw on SBF                                         |
++-----+-----------------------------------------------------------------------------+
+| 2   | Use baudrate 115200                                                         |
++-----+-----------------------------------------------------------------------------+
+| 3   | Use dedicated CAN port b/w GPSes for moving baseline                        |
++-----+-----------------------------------------------------------------------------+
+| 4   | Use ellipsoid height instead of AMSL                                        |
++-----+-----------------------------------------------------------------------------+
+| 5   | Override GPS satellite health of L5 band from L1 health                     |
++-----+-----------------------------------------------------------------------------+
+| 6   | Enable RTCM full parse even for a single channel                            |
++-----+-----------------------------------------------------------------------------+
+| 7   | Disable automatic full RTCM parsing when RTCM seen on more than one channel |
++-----+-----------------------------------------------------------------------------+
 
 
 
@@ -45543,6 +45740,24 @@ MNT1\_DEVID: Mount Device ID
 Mount device ID\, taking into account its type\, bus and instance
 
 
+.. _MNT1_OPTIONS:
+
+MNT1\_OPTIONS: Mount options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Mount options bitmask
+
+
++-----+----------------------------------+
+| Bit | Meaning                          |
++=====+==================================+
+| 0   | RC lock state from previous mode |
++-----+----------------------------------+
+
+
+
+
 
 .. _parameters_MNT2:
 
@@ -45911,6 +46126,24 @@ MNT2\_DEVID: Mount Device ID
 Mount device ID\, taking into account its type\, bus and instance
 
 
+.. _MNT2_OPTIONS:
+
+MNT2\_OPTIONS: Mount options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Mount options bitmask
+
+
++-----+----------------------------------+
+| Bit | Meaning                          |
++=====+==================================+
+| 0   | RC lock state from previous mode |
++-----+----------------------------------+
+
+
+
+
 
 .. _parameters_MSP:
 
@@ -46075,10 +46308,10 @@ NET\_ Parameters
 ----------------
 
 
-.. _NET_ENABLED:
+.. _NET_ENABLE:
 
-NET\_ENABLED: Networking Enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+NET\_ENABLE: Networking Enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | *Note: This parameter is for advanced users*
 | *Note: Reboot required after change*
@@ -64716,6 +64949,438 @@ Type of the parameter to be displayed and modified
 
 
 
+.. _parameters_PLND_:
+
+PLND\_ Parameters
+-----------------
+
+
+.. _PLND_ENABLED:
+
+PLND\_ENABLED: Precision Land enabled\/disabled
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Precision Land enabled\/disabled
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _PLND_TYPE:
+
+PLND\_TYPE: Precision Land Type
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Precision Land Type
+
+
++-------+-------------------+
+| Value | Meaning           |
++=======+===================+
+| 0     | None              |
++-------+-------------------+
+| 1     | CompanionComputer |
++-------+-------------------+
+| 2     | IRLock            |
++-------+-------------------+
+| 3     | SITL_Gazebo       |
++-------+-------------------+
+| 4     | SITL              |
++-------+-------------------+
+
+
+
+
+.. _PLND_YAW_ALIGN:
+
+PLND\_YAW\_ALIGN: Sensor yaw alignment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Yaw angle from body x\-axis to sensor x\-axis\.
+
+
++-----------+------------+--------------+
+| Increment | Range      | Units        |
++===========+============+==============+
+| 10        | 0 to 36000 | centidegrees |
++-----------+------------+--------------+
+
+
+
+
+.. _PLND_LAND_OFS_X:
+
+PLND\_LAND\_OFS\_X: Land offset forward
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Desired landing position of the camera forward of the target in vehicle body frame
+
+
++-----------+-----------+-------------+
+| Increment | Range     | Units       |
++===========+===========+=============+
+| 1         | -20 to 20 | centimeters |
++-----------+-----------+-------------+
+
+
+
+
+.. _PLND_LAND_OFS_Y:
+
+PLND\_LAND\_OFS\_Y: Land offset right
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+desired landing position of the camera right of the target in vehicle body frame
+
+
++-----------+-----------+-------------+
+| Increment | Range     | Units       |
++===========+===========+=============+
+| 1         | -20 to 20 | centimeters |
++-----------+-----------+-------------+
+
+
+
+
+.. _PLND_EST_TYPE:
+
+PLND\_EST\_TYPE: Precision Land Estimator Type
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Specifies the estimation method to be used
+
+
++-------+--------------+
+| Value | Meaning      |
++=======+==============+
+| 0     | RawSensor    |
++-------+--------------+
+| 1     | KalmanFilter |
++-------+--------------+
+
+
+
+
+.. _PLND_ACC_P_NSE:
+
+PLND\_ACC\_P\_NSE: Kalman Filter Accelerometer Noise
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Kalman Filter Accelerometer Noise\, higher values weight the input from the camera more\, accels less
+
+
++----------+
+| Range    |
++==========+
+| 0.5 to 5 |
++----------+
+
+
+
+
+.. _PLND_CAM_POS_X:
+
+PLND\_CAM\_POS\_X: Camera X position offset
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+X position of the camera in body frame\. Positive X is forward of the origin\.
+
+
++-----------+---------+--------+
+| Increment | Range   | Units  |
++===========+=========+========+
+| 0.01      | -5 to 5 | meters |
++-----------+---------+--------+
+
+
+
+
+.. _PLND_CAM_POS_Y:
+
+PLND\_CAM\_POS\_Y: Camera Y position offset
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Y position of the camera in body frame\. Positive Y is to the right of the origin\.
+
+
++-----------+---------+--------+
+| Increment | Range   | Units  |
++===========+=========+========+
+| 0.01      | -5 to 5 | meters |
++-----------+---------+--------+
+
+
+
+
+.. _PLND_CAM_POS_Z:
+
+PLND\_CAM\_POS\_Z: Camera Z position offset
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Z position of the camera in body frame\. Positive Z is down from the origin\.
+
+
++-----------+---------+--------+
+| Increment | Range   | Units  |
++===========+=========+========+
+| 0.01      | -5 to 5 | meters |
++-----------+---------+--------+
+
+
+
+
+.. _PLND_BUS:
+
+PLND\_BUS: Sensor Bus
+~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Precland sensor bus for I2C sensors\.
+
+
++-------+-------------+
+| Value | Meaning     |
++=======+=============+
+| -1    | DefaultBus  |
++-------+-------------+
+| 0     | InternalI2C |
++-------+-------------+
+| 1     | ExternalI2C |
++-------+-------------+
+
+
+
+
+.. _PLND_LAG:
+
+PLND\_LAG: Precision Landing sensor lag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+| *Note: Reboot required after change*
+
+Precision Landing sensor lag\, to cope with variable landing\_target latency
+
+
++-----------+---------------+---------+
+| Increment | Range         | Units   |
++===========+===============+=========+
+| 1         | 0.02 to 0.250 | seconds |
++-----------+---------------+---------+
+
+
+
+
+.. _PLND_XY_DIST_MAX:
+
+PLND\_XY\_DIST\_MAX: Precision Landing maximum distance to target before descending
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+The vehicle will not start descending if the landing target is detected and it is further than this many meters away\. Set 0 to always descend\.
+
+
++---------+--------+
+| Range   | Units  |
++=========+========+
+| 0 to 10 | meters |
++---------+--------+
+
+
+
+
+.. _PLND_STRICT:
+
+PLND\_STRICT: PrecLand strictness
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+How strictly should the vehicle land on the target if target is lost
+
+
++-------+----------------------------------------+
+| Value | Meaning                                |
++=======+========================================+
+| 0     | Land Vertically (Not strict)           |
++-------+----------------------------------------+
+| 1     | Retry Landing(Normal Strictness)       |
++-------+----------------------------------------+
+| 2     | Do not land (just Hover) (Very Strict) |
++-------+----------------------------------------+
+
+
+
+
+.. _PLND_RET_MAX:
+
+PLND\_RET\_MAX: PrecLand Maximum number of retires for a failed landing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+PrecLand Maximum number of retires for a failed landing\. Set to zero to disable landing retry\.
+
+
++-----------+---------+
+| Increment | Range   |
++===========+=========+
+| 1         | 0 to 10 |
++-----------+---------+
+
+
+
+
+.. _PLND_TIMEOUT:
+
+PLND\_TIMEOUT: PrecLand retry timeout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Time for which vehicle continues descend even if target is lost\. After this time period\, vehicle will attempt a landing retry depending on PLND\_STRICT parameter\.
+
+
++---------+---------+
+| Range   | Units   |
++=========+=========+
+| 0 to 20 | seconds |
++---------+---------+
+
+
+
+
+.. _PLND_RET_BEHAVE:
+
+PLND\_RET\_BEHAVE: PrecLand retry behaviour
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Prec Land will do the action selected by this parameter if a retry to a landing is needed
+
+
++-------+--------------------------------------------------------------------+
+| Value | Meaning                                                            |
++=======+====================================================================+
+| 0     | Go to the last location where landing target was detected          |
++-------+--------------------------------------------------------------------+
+| 1     | Go towards the approximate location of the detected landing target |
++-------+--------------------------------------------------------------------+
+
+
+
+
+.. _PLND_ALT_MIN:
+
+PLND\_ALT\_MIN: PrecLand minimum alt for retry
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Vehicle will continue landing vertically even if target is lost below this height\. This needs a rangefinder to work\. Set to zero to disable this\.
+
+
++--------+--------+
+| Range  | Units  |
++========+========+
+| 0 to 5 | meters |
++--------+--------+
+
+
+
+
+.. _PLND_ALT_MAX:
+
+PLND\_ALT\_MAX: PrecLand maximum alt for retry
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Vehicle will continue landing vertically until this height if target is not found\. Below this height if landing target is not found\, landing retry\/failsafe might be attempted\. This needs a rangefinder to work\. Set to zero to disable this\.
+
+
++---------+--------+
+| Range   | Units  |
++=========+========+
+| 0 to 50 | meters |
++---------+--------+
+
+
+
+
+.. _PLND_OPTIONS:
+
+PLND\_OPTIONS: Precision Landing Extra Options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Precision Landing Extra Options
+
+
++-----+-------------------------------------------------+
+| Bit | Meaning                                         |
++=====+=================================================+
+| 0   | Moving Landing Target                           |
++-----+-------------------------------------------------+
+| 1   | Allow Precision Landing after manual reposition |
++-----+-------------------------------------------------+
+| 2   | Maintain high speed in final descent            |
++-----+-------------------------------------------------+
+
+
+
+
+.. _PLND_ORIENT:
+
+PLND\_ORIENT: Camera Orientation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+| *Note: Reboot required after change*
+
+Orientation of camera\/sensor on body
+
+
++-------+---------+
+| Value | Meaning |
++=======+=========+
+| 0     | Forward |
++-------+---------+
+| 4     | Back    |
++-------+---------+
+| 25    | Down    |
++-------+---------+
+
+
+
+
+
 .. _parameters_PTCH:
 
 PTCH Parameters
@@ -65094,11 +65759,11 @@ Q\_TRANSITION\_MS: Transition time
 Transition time in milliseconds after minimum airspeed is reached
 
 
-+---------------+--------------+
-| Range         | Units        |
-+===============+==============+
-| 2000 to 30000 | milliseconds |
-+---------------+--------------+
++--------------+--------------+
+| Range        | Units        |
++==============+==============+
+| 500 to 30000 | milliseconds |
++--------------+--------------+
 
 
 
@@ -66100,6 +66765,24 @@ This parameter determines when the feature that uses forward throttle instead of
 +-------+----------------------------------------------+
 | 2     | On in all Q modes except QAUTOTUNE and QACRO |
 +-------+----------------------------------------------+
+
+
+
+
+.. _Q_BCK_PIT_LIM:
+
+Q\_BCK\_PIT\_LIM: Q mode rearward pitch limit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+This sets the maximum number of degrees of back or pitch up in Q modes when the airspeed is at AIRSPEED\_MIN\, and is used to prevent excessive sutructural loads when pitching up decelerate\. If airspeed is above or below AIRSPEED\_MIN\, the pitch up\/back will be adjusted according to the formula pitch\_limit \= Q\_BCK\_PIT\_LIM \* \(AIRSPEED\_MIN \/ IAS\)\^2\. The backwards\/up pitch limit controlled by this parameter is in addition to limiting applied by PTCH\_LIM\_MAX\_DEG and Q\_ANGLE\_MAX\. The BCK\_PIT\_LIM limit is only applied when Q\_FWD\_THR\_USE is set to 1 or 2 and the vehicle is flying in a mode that uses forward throttle instead of forward tilt to generate forward speed\. Set to a non positive value 0 to deactivate this limit\.
+
+
++-----------+-------------+---------+
+| Increment | Range       | Units   |
++===========+=============+=========+
+| 0.1       | 0.0 to 15.0 | degrees |
++-----------+-------------+---------+
 
 
 
@@ -70065,6 +70748,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -70376,6 +71061,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -70689,6 +71376,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -71000,6 +71689,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -71313,6 +72004,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -71624,6 +72317,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -71937,6 +72632,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -72248,6 +72945,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -72561,6 +73260,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -72872,6 +73573,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -73185,6 +73888,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -73496,6 +74201,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -73809,6 +74516,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -74120,6 +74829,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -74433,6 +75144,8 @@ Function assigned to this RC channel
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
 +-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
++-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
 | 209   | VTOL Forward Throttle                               |
@@ -74744,6 +75457,8 @@ Function assigned to this RC channel
 | 175   | Camera Lens                                         |
 +-------+-----------------------------------------------------+
 | 176   | Quadplane Fwd Throttle Override enable              |
++-------+-----------------------------------------------------+
+| 177   | Mount LRF enable                                    |
 +-------+-----------------------------------------------------+
 | 208   | Flap                                                |
 +-------+-----------------------------------------------------+
@@ -99202,6 +99917,262 @@ SIM\_OPOS\_HDG: Original Position \(Heading\)
 Specifies vehicle\'s startup heading \(0\-360\)
 
 
+.. _SIM_VICON_POS_X:
+
+SIM\_VICON\_POS\_X: SITL vicon position on vehicle in Forward direction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon position on vehicle in Forward direction
+
+
++---------+--------+
+| Range   | Units  |
++=========+========+
+| 0 to 10 | meters |
++---------+--------+
+
+
+
+
+.. _SIM_VICON_POS_Y:
+
+SIM\_VICON\_POS\_Y: SITL vicon position on vehicle in Right direction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon position on vehicle in Right direction
+
+
++---------+--------+
+| Range   | Units  |
++=========+========+
+| 0 to 10 | meters |
++---------+--------+
+
+
+
+
+.. _SIM_VICON_POS_Z:
+
+SIM\_VICON\_POS\_Z: SITL vicon position on vehicle in Down direction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+SITL vicon position on vehicle in Down direction
+
+
++---------+--------+
+| Range   | Units  |
++=========+========+
+| 0 to 10 | meters |
++---------+--------+
+
+
+
+
+.. _SIM_VICON_GLIT_X:
+
+SIM\_VICON\_GLIT\_X: SITL vicon position glitch North
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon position glitch North
+
+
++--------+
+| Units  |
++========+
+| meters |
++--------+
+
+
+
+
+.. _SIM_VICON_GLIT_Y:
+
+SIM\_VICON\_GLIT\_Y: SITL vicon position glitch East
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon position glitch East
+
+
++--------+
+| Units  |
++========+
+| meters |
++--------+
+
+
+
+
+.. _SIM_VICON_GLIT_Z:
+
+SIM\_VICON\_GLIT\_Z: SITL vicon position glitch Down
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon position glitch Down
+
+
++--------+
+| Units  |
++========+
+| meters |
++--------+
+
+
+
+
+.. _SIM_VICON_FAIL:
+
+SIM\_VICON\_FAIL: SITL vicon failure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon failure
+
+
++-------+---------------+
+| Value | Meaning       |
++=======+===============+
+| 0     | Vicon Healthy |
++-------+---------------+
+| 1     | Vicon Failed  |
++-------+---------------+
+
+
+
+
+.. _SIM_VICON_YAW:
+
+SIM\_VICON\_YAW: SITL vicon yaw angle in earth frame
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon yaw angle in earth frame
+
+
++----------+---------+
+| Range    | Units   |
++==========+=========+
+| 0 to 360 | degrees |
++----------+---------+
+
+
+
+
+.. _SIM_VICON_YAWERR:
+
+SIM\_VICON\_YAWERR: SITL vicon yaw error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon yaw added to reported yaw sent to vehicle
+
+
++-------------+---------+
+| Range       | Units   |
++=============+=========+
+| -180 to 180 | degrees |
++-------------+---------+
+
+
+
+
+.. _SIM_VICON_TMASK:
+
+SIM\_VICON\_TMASK: SITL vicon type mask
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon messages sent
+
+
++-----+--------------------------+
+| Bit | Meaning                  |
++=====+==========================+
+| 0   | VISION_POSITION_ESTIMATE |
++-----+--------------------------+
+| 1   | VISION_SPEED_ESTIMATE    |
++-----+--------------------------+
+| 2   | VICON_POSITION_ESTIMATE  |
++-----+--------------------------+
+| 3   | VISION_POSITION_DELTA    |
++-----+--------------------------+
+| 4   | ODOMETRY                 |
++-----+--------------------------+
+
+
+
+
+.. _SIM_VICON_VGLI_X:
+
+SIM\_VICON\_VGLI\_X: SITL vicon velocity glitch North
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon velocity glitch North
+
+
++-------------------+
+| Units             |
++===================+
+| meters per second |
++-------------------+
+
+
+
+
+.. _SIM_VICON_VGLI_Y:
+
+SIM\_VICON\_VGLI\_Y: SITL vicon velocity glitch East
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon velocity glitch East
+
+
++-------------------+
+| Units             |
++===================+
+| meters per second |
++-------------------+
+
+
+
+
+.. _SIM_VICON_VGLI_Z:
+
+SIM\_VICON\_VGLI\_Z: SITL vicon velocity glitch Down
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+SITL vicon velocity glitch Down
+
+
++-------------------+
+| Units             |
++===================+
+| meters per second |
++-------------------+
+
+
+
+
 .. _SIM_IMU_COUNT:
 
 SIM\_IMU\_COUNT: IMU count
@@ -101523,19 +102494,19 @@ Precland device center\'s longitude
 
 .. _SIM_PLD_HEIGHT:
 
-SIM\_PLD\_HEIGHT: Precland device center\'s height above sealevel
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SIM\_PLD\_HEIGHT: Precland device center\'s height SITL origin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | *Note: This parameter is for advanced users*
 
-Precland device center\'s height above sealevel assume a 2x2m square as station base
+Precland device center\'s height above SITL origin\. Assumes a 2x2m square as station base
 
 
-+-----------+------------+-------------+
-| Increment | Range      | Units       |
-+===========+============+=============+
-| 1         | 0 to 10000 | centimeters |
-+-----------+------------+-------------+
++-----------+------------+--------+
+| Increment | Range      | Units  |
++===========+============+========+
+| 1         | 0 to 10000 | meters |
++-----------+------------+--------+
 
 
 
@@ -101677,6 +102648,27 @@ SIM\_Precland extra options
 +=====+========================+
 | 0   | Enable target distance |
 +-----+------------------------+
+
+
+
+
+.. _SIM_PLD_SHIP:
+
+SIM\_PLD\_SHIP: SIM\_Precland follow ship
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+This makes the position of the landing beacon follow the simulated ship from SIM\_SHIP\. The ship movement is controlled with the SIM\_SHIP parameters
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
 
 
 
@@ -104396,11 +105388,13 @@ TECS\_OPTIONS: Extra TECS options
 This allows the enabling of special features in the speed\/height controller\.
 
 
-+-----+------------+
-| Bit | Meaning    |
-+=====+============+
-| 0   | GliderOnly |
-+-----+------------+
++-----+---------------------+
+| Bit | Meaning             |
++=====+=====================+
+| 0   | GliderOnly          |
++-----+---------------------+
+| 1   | AllowDescentSpeedup |
++-----+---------------------+
 
 
 
@@ -106894,6 +107888,25 @@ Visual odometry yaw measurement noise minimum \(radians\)\, This value will be u
 
 
 
+.. _VISO_QUAL_MIN:
+
+VISO\_QUAL\_MIN: Visual odometry minimum quality
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| *Note: This parameter is for advanced users*
+
+Visual odometry will only be sent to EKF if over this value\. \-1 to always send \(even bad values\)\, 0 to send if good or unknown
+
+
++-----------+---------+
+| Range     | Units   |
++===========+=========+
+| -1 to 100 | percent |
++-----------+---------+
+
+
+
+
 
 .. _parameters_VTX_:
 
@@ -106984,6 +107997,8 @@ Video Transmitter Band
 | 6     | 1G3 Band A   |
 +-------+--------------+
 | 7     | 1G3 Band B   |
++-------+--------------+
+| 8     | Band X       |
 +-------+--------------+
 
 

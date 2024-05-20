@@ -615,6 +615,15 @@
       "DisplayName": "Arm Checks to Perform (bitmask)",
       "User": "Standard"
     },
+    "ARMING_CRSDP_IGN": {
+      "Description": "Must have value \"1\" if crashdump data is present on the system, or a prearm failure will be raised.  Do not set this parameter unless the risks of doing so are fully understood.  The presence of a crash dump means that the firmware currently installed has suffered a critical software failure which resulted in the autopilot immediately rebooting.  The crashdump file gives diagnostic information which can help in finding the issue, please contact the ArduPIlot support team.  If this crashdump data is present, the vehicle is likely unsafe to fly.  Check the ArduPilot documentation for more details.",
+      "DisplayName": "Disable CrashDump Arming check",
+      "User": "Advanced",
+      "Values": {
+        "0": "Crash Dump arming check active",
+        "1": "Crash Dump arming check deactivated"
+      }
+    },
     "ARMING_MAGTHRESH": {
       "Description": "Compass magnetic field strength error threshold vs earth magnetic model.  X and y axis are compared using this threhold, Z axis uses 2x this threshold.  0 to disable check",
       "DisplayName": "Compass magnetic field strength error threshold vs earth magnetic model",
@@ -8484,6 +8493,16 @@
         "7": "300Hz"
       }
     },
+    "BRD_SD_FENCE": {
+      "Description": "This sets the amount of storage in kilobytes reserved on the microsd card in fence.stg for fence storage.",
+      "DisplayName": " SDCard Fence size",
+      "Range": {
+        "high": "64",
+        "low": "0"
+      },
+      "RebootRequired": "True",
+      "User": "Advanced"
+    },
     "BRD_SD_MISSION": {
       "Description": "This sets the amount of storage in kilobytes reserved on the microsd card in mission.stg for waypoint storage. Each waypoint uses 15 bytes.",
       "DisplayName": " SDCard Mission size",
@@ -8861,6 +8880,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -8982,6 +9002,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -9103,6 +9124,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -9224,6 +9246,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -9781,7 +9804,7 @@
         "11": "Benewake",
         "12": "Scripting2",
         "13": "TOFSenseP",
-        "14": "NanoRadar_NRA24",
+        "14": "NanoRadar",
         "4": "PiccoloCAN",
         "6": "EFI_NWPMU",
         "7": "USD1",
@@ -9799,7 +9822,7 @@
         "11": "Benewake",
         "12": "Scripting2",
         "13": "TOFSenseP",
-        "14": "NanoRadar_NRA24",
+        "14": "NanoRadar",
         "7": "USD1"
       }
     }
@@ -10442,7 +10465,7 @@
         "11": "Benewake",
         "12": "Scripting2",
         "13": "TOFSenseP",
-        "14": "NanoRadar_NRA24",
+        "14": "NanoRadar",
         "4": "PiccoloCAN",
         "6": "EFI_NWPMU",
         "7": "USD1",
@@ -10460,7 +10483,7 @@
         "11": "Benewake",
         "12": "Scripting2",
         "13": "TOFSenseP",
-        "14": "NanoRadar_NRA24",
+        "14": "NanoRadar",
         "7": "USD1"
       }
     }
@@ -11103,7 +11126,7 @@
         "11": "Benewake",
         "12": "Scripting2",
         "13": "TOFSenseP",
-        "14": "NanoRadar_NRA24",
+        "14": "NanoRadar",
         "4": "PiccoloCAN",
         "6": "EFI_NWPMU",
         "7": "USD1",
@@ -11121,7 +11144,7 @@
         "11": "Benewake",
         "12": "Scripting2",
         "13": "TOFSenseP",
-        "14": "NanoRadar_NRA24",
+        "14": "NanoRadar",
         "7": "USD1"
       }
     }
@@ -14383,6 +14406,12 @@
     }
   },
   "EAHRS": {
+    "EAHRS_LOG_RATE": {
+      "Description": "Logging rate for EARHS devices",
+      "DisplayName": "AHRS logging rate",
+      "Units": "Hz",
+      "User": "Standard"
+    },
     "EAHRS_OPTIONS": {
       "Bitmask": {
         "0": "Vector Nav use uncompensated values for accel gyro and mag."
@@ -17144,7 +17173,9 @@
         "2": "Use baudrate 115200",
         "3": "Use dedicated CAN port b/w GPSes for moving baseline",
         "4": "Use ellipsoid height instead of AMSL",
-        "5": "Override GPS satellite health of L5 band from L1 health"
+        "5": "Override GPS satellite health of L5 band from L1 health",
+        "6": "Enable RTCM full parse even for a single channel",
+        "7": "Disable automatic full RTCM parsing when RTCM seen on more than one channel"
       },
       "Description": "Additional backend specific options",
       "DisplayName": "driver options",
@@ -20939,6 +20970,16 @@
       },
       "User": "Standard"
     },
+    "DIST_CUTOFF": {
+      "Description": "The distance from target beyond which the target is ignored",
+      "DisplayName": "Precland distance cutoff",
+      "Range": {
+        "high": "100",
+        "low": "0"
+      },
+      "Units": "m",
+      "User": "Standard"
+    },
     "DJIR_DEBUG": {
       "Description": "Enable DJIRS2 debug",
       "DisplayName": "DJIRS2 debug",
@@ -21307,6 +21348,64 @@
         "high": "50",
         "low": "1"
       },
+      "User": "Standard"
+    },
+    "ESRC_EXTN_QUAL": {
+      "Description": "ExternalNav may be used if quality is above this threshold",
+      "DisplayName": "EKF Source ExternalNav Quality Threshold",
+      "Range": {
+        "high": "100",
+        "low": "0"
+      },
+      "Units": "%",
+      "User": "Standard"
+    },
+    "ESRC_EXTN_THRESH": {
+      "Description": "ExternalNav may be used if innovations are below this threshold",
+      "DisplayName": "EKF Source ExternalNav Innovation Threshold",
+      "Range": {
+        "high": "1",
+        "low": "0"
+      },
+      "User": "Standard"
+    },
+    "ESRC_FLOW_QUAL": {
+      "Description": "OpticalFlow may be used if quality is above this threshold",
+      "DisplayName": "EKF Source OpticalFlow Quality Threshold",
+      "Range": {
+        "high": "100",
+        "low": "0"
+      },
+      "Units": "%",
+      "User": "Standard"
+    },
+    "ESRC_FLOW_THRESH": {
+      "Description": "OpticalFlow may be used if innovations are below this threshold",
+      "DisplayName": "EKF Source OpticalFlow Innovation Threshold",
+      "Range": {
+        "high": "1",
+        "low": "0"
+      },
+      "User": "Standard"
+    },
+    "ESRC_RNGFND_MAX": {
+      "Description": "OpticalFlow may be used if rangefinder distance is below this threshold",
+      "DisplayName": "EKF Source Rangefinder Max",
+      "Range": {
+        "high": "50",
+        "low": "0"
+      },
+      "Units": "m",
+      "User": "Standard"
+    },
+    "PLND_ALT_CUTOFF": {
+      "Description": "The altitude (rangefinder distance) below which we stop using the precision landing sensor and continue landing",
+      "DisplayName": "Precland altitude cutoff",
+      "Range": {
+        "high": "20",
+        "low": "0"
+      },
+      "Units": "m",
       "User": "Standard"
     },
     "POI_DIST_MAX": {
@@ -22021,6 +22120,14 @@
       "Units": "deg",
       "User": "Standard"
     },
+    "MNT1_OPTIONS": {
+      "Bitmask": {
+        "0": "RC lock state from previous mode"
+      },
+      "Description": "Mount options bitmask",
+      "DisplayName": "Mount options",
+      "User": "Standard"
+    },
     "MNT1_PITCH_MAX": {
       "Description": "Mount Pitch angle maximum",
       "DisplayName": "Mount Pitch angle maximum",
@@ -22231,6 +22338,14 @@
         "low": "-180.0"
       },
       "Units": "deg",
+      "User": "Standard"
+    },
+    "MNT2_OPTIONS": {
+      "Bitmask": {
+        "0": "RC lock state from previous mode"
+      },
+      "Description": "Mount options bitmask",
+      "DisplayName": "Mount options",
       "User": "Standard"
     },
     "MNT2_PITCH_MAX": {
@@ -22664,7 +22779,7 @@
         "1": "Enable"
       }
     },
-    "NET_ENABLED": {
+    "NET_ENABLE": {
       "Description": "Networking Enable",
       "DisplayName": "Networking Enable",
       "RebootRequired": "True",
@@ -31489,6 +31604,7 @@
         "14": "DroneCAN",
         "15": "Scripting",
         "16": "LD06",
+        "17": "MR72_CAN",
         "2": "MAVLink",
         "3": "TeraRangerTower",
         "4": "RangeFinder",
@@ -31507,6 +31623,17 @@
       },
       "Units": "deg",
       "User": "Standard"
+    }
+  },
+  "PRX1_": {
+    "PRX1_RECV_ID": {
+      "Description": "The receive ID of the CAN frames. A value of zero means all IDs are accepted.",
+      "DisplayName": "CAN receive ID",
+      "Range": {
+        "high": "65535",
+        "low": "0"
+      },
+      "User": "Advanced"
     }
   },
   "PRX2": {
@@ -31642,6 +31769,7 @@
         "14": "DroneCAN",
         "15": "Scripting",
         "16": "LD06",
+        "17": "MR72_CAN",
         "2": "MAVLink",
         "3": "TeraRangerTower",
         "4": "RangeFinder",
@@ -31660,6 +31788,17 @@
       },
       "Units": "deg",
       "User": "Standard"
+    }
+  },
+  "PRX2_": {
+    "PRX2_RECV_ID": {
+      "Description": "The receive ID of the CAN frames. A value of zero means all IDs are accepted.",
+      "DisplayName": "CAN receive ID",
+      "Range": {
+        "high": "65535",
+        "low": "0"
+      },
+      "User": "Advanced"
     }
   },
   "PRX3": {
@@ -31795,6 +31934,7 @@
         "14": "DroneCAN",
         "15": "Scripting",
         "16": "LD06",
+        "17": "MR72_CAN",
         "2": "MAVLink",
         "3": "TeraRangerTower",
         "4": "RangeFinder",
@@ -31813,6 +31953,17 @@
       },
       "Units": "deg",
       "User": "Standard"
+    }
+  },
+  "PRX3_": {
+    "PRX3_RECV_ID": {
+      "Description": "The receive ID of the CAN frames. A value of zero means all IDs are accepted.",
+      "DisplayName": "CAN receive ID",
+      "Range": {
+        "high": "65535",
+        "low": "0"
+      },
+      "User": "Advanced"
     }
   },
   "PRX4": {
@@ -31948,6 +32099,7 @@
         "14": "DroneCAN",
         "15": "Scripting",
         "16": "LD06",
+        "17": "MR72_CAN",
         "2": "MAVLink",
         "3": "TeraRangerTower",
         "4": "RangeFinder",
@@ -31966,6 +32118,17 @@
       },
       "Units": "deg",
       "User": "Standard"
+    }
+  },
+  "PRX4_": {
+    "PRX4_RECV_ID": {
+      "Description": "The receive ID of the CAN frames. A value of zero means all IDs are accepted.",
+      "DisplayName": "CAN receive ID",
+      "Range": {
+        "high": "65535",
+        "low": "0"
+      },
+      "User": "Advanced"
     }
   },
   "PSC": {
@@ -32460,6 +32623,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -32635,6 +32799,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -32810,6 +32975,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -32985,6 +33151,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -33160,6 +33327,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -33335,6 +33503,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -33510,6 +33679,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -33685,6 +33855,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -33860,6 +34031,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -34035,6 +34207,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -34210,6 +34383,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -34385,6 +34559,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -34560,6 +34735,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -34735,6 +34911,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -34910,6 +35087,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -35085,6 +35263,7 @@
         "172": "Battery MPPT Enable",
         "174": "Camera Image Tracking",
         "175": "Camera Lens",
+        "177": "Mount LRF enable",
         "18": "LAND Mode",
         "19": "Gripper Release",
         "2": "FLIP Mode",
@@ -47153,6 +47332,113 @@
       "Units": "%",
       "User": "Advanced"
     },
+    "SIM_VICON_FAIL": {
+      "Description": "SITL vicon failure",
+      "DisplayName": "SITL vicon failure",
+      "User": "Advanced",
+      "Values": {
+        "0": "Vicon Healthy",
+        "1": "Vicon Failed"
+      }
+    },
+    "SIM_VICON_GLIT_X": {
+      "Description": "SITL vicon position glitch North",
+      "DisplayName": "SITL vicon position glitch North",
+      "Units": "m",
+      "User": "Advanced"
+    },
+    "SIM_VICON_GLIT_Y": {
+      "Description": "SITL vicon position glitch East",
+      "DisplayName": "SITL vicon position glitch East",
+      "Units": "m",
+      "User": "Advanced"
+    },
+    "SIM_VICON_GLIT_Z": {
+      "Description": "SITL vicon position glitch Down",
+      "DisplayName": "SITL vicon position glitch Down",
+      "Units": "m",
+      "User": "Advanced"
+    },
+    "SIM_VICON_POS_X": {
+      "Description": "SITL vicon position on vehicle in Forward direction",
+      "DisplayName": "SITL vicon position on vehicle in Forward direction",
+      "Range": {
+        "high": "10",
+        "low": "0"
+      },
+      "Units": "m",
+      "User": "Advanced"
+    },
+    "SIM_VICON_POS_Y": {
+      "Description": "SITL vicon position on vehicle in Right direction",
+      "DisplayName": "SITL vicon position on vehicle in Right direction",
+      "Range": {
+        "high": "10",
+        "low": "0"
+      },
+      "Units": "m",
+      "User": "Advanced"
+    },
+    "SIM_VICON_POS_Z": {
+      "Description": "SITL vicon position on vehicle in Down direction",
+      "DisplayName": "SITL vicon position on vehicle in Down direction",
+      "Range": {
+        "high": "10",
+        "low": "0"
+      },
+      "Units": "m",
+      "User": "Advanced    "
+    },
+    "SIM_VICON_TMASK": {
+      "Bitmask": {
+        "0": "VISION_POSITION_ESTIMATE",
+        "1": "VISION_SPEED_ESTIMATE",
+        "2": "VICON_POSITION_ESTIMATE",
+        "3": "VISION_POSITION_DELTA",
+        "4": "ODOMETRY"
+      },
+      "Description": "SITL vicon messages sent",
+      "DisplayName": "SITL vicon type mask",
+      "User": "Advanced"
+    },
+    "SIM_VICON_VGLI_X": {
+      "Description": "SITL vicon velocity glitch North",
+      "DisplayName": "SITL vicon velocity glitch North",
+      "Units": "m/s",
+      "User": "Advanced"
+    },
+    "SIM_VICON_VGLI_Y": {
+      "Description": "SITL vicon velocity glitch East",
+      "DisplayName": "SITL vicon velocity glitch East",
+      "Units": "m/s",
+      "User": "Advanced"
+    },
+    "SIM_VICON_VGLI_Z": {
+      "Description": "SITL vicon velocity glitch Down",
+      "DisplayName": "SITL vicon velocity glitch Down",
+      "Units": "m/s",
+      "User": "Advanced"
+    },
+    "SIM_VICON_YAW": {
+      "Description": "SITL vicon yaw angle in earth frame",
+      "DisplayName": "SITL vicon yaw angle in earth frame",
+      "Range": {
+        "high": "360",
+        "low": "0"
+      },
+      "Units": "deg",
+      "User": "Advanced"
+    },
+    "SIM_VICON_YAWERR": {
+      "Description": "SITL vicon yaw added to reported yaw sent to vehicle",
+      "DisplayName": "SITL vicon yaw error",
+      "Range": {
+        "high": "180",
+        "low": "-180"
+      },
+      "Units": "deg",
+      "User": "Advanced"
+    },
     "SIM_WIND_DIR": {
       "Description": "Allows you to set wind direction (true deg) in sim",
       "DisplayName": "Simulated Wind direction",
@@ -47372,14 +47658,14 @@
       }
     },
     "SIM_PLD_HEIGHT": {
-      "Description": "Precland device center's height above sealevel assume a 2x2m square as station base",
-      "DisplayName": "Precland device center's height above sealevel",
+      "Description": "Precland device center's height above SITL origin. Assumes a 2x2m square as station base",
+      "DisplayName": "Precland device center's height SITL origin",
       "Increment": "1",
       "Range": {
         "high": "10000",
         "low": "0"
       },
-      "Units": "cm",
+      "Units": "m",
       "User": "Advanced"
     },
     "SIM_PLD_LAT": {
@@ -47431,6 +47717,15 @@
       },
       "Units": "Hz",
       "User": "Advanced"
+    },
+    "SIM_PLD_SHIP": {
+      "Description": "This makes the position of the landing beacon follow the simulated ship from SIM_SHIP. The ship movement is controlled with the SIM_SHIP parameters",
+      "DisplayName": "SIM_Precland follow ship",
+      "User": "Advanced",
+      "Values": {
+        "0": "Disabled",
+        "1": "Enabled"
+      }
     },
     "SIM_PLD_TYPE": {
       "Description": "Precland device radiance type: it can be a cylinder, a cone, or a sphere.",
@@ -49799,6 +50094,16 @@
       "Units": "m",
       "User": "Advanced"
     },
+    "VISO_QUAL_MIN": {
+      "Description": "Visual odometry will only be sent to EKF if over this value. -1 to always send (even bad values), 0 to send if good or unknown",
+      "DisplayName": "Visual odometry minimum quality",
+      "Range": {
+        "high": "100",
+        "low": "-1"
+      },
+      "Units": "%",
+      "User": "Advanced"
+    },
     "VISO_SCALE": {
       "Description": "Visual odometry scaling factor applied to position estimates from sensor",
       "DisplayName": "Visual odometry scaling factor",
@@ -49850,7 +50155,8 @@
         "4": "RaceBand",
         "5": "Low RaceBand",
         "6": "1G3 Band A",
-        "7": "1G3 Band B"
+        "7": "1G3 Band B",
+        "8": "Band X"
       }
     },
     "VTX_CHANNEL": {

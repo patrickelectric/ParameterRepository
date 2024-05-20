@@ -823,107 +823,6 @@
           <value code="1">Enabled</value>
         </values>
       </param>
-      <param humanName="Quicktune enable" name="QUIK_ENABLE" documentation="Enable quicktune system" user="Standard">
-        <values>
-          <value code="0">Disabled</value>
-          <value code="1">Enabled</value>
-        </values>
-      </param>
-      <param humanName="Quicktune axes" name="QUIK_AXES" documentation="axes to tune" user="Standard">
-        <field name="Bitmask">0:Roll,1:Pitch,2:Yaw</field>
-      </param>
-      <param humanName="Quicktune doubling time" name="QUIK_DOUBLE_TIME" documentation="Time to double a tuning parameter. Raise this for a slower tune." user="Standard">
-        <field name="Range">5 20</field>
-        <field name="Units">s</field>
-        <field name="UnitText">seconds</field>
-      </param>
-      <param humanName="Quicktune gain margin" name="QUIK_GAIN_MARGIN" documentation="Reduction in gain after oscillation detected. Raise this number to get a more conservative tune" user="Standard">
-        <field name="Range">20 80</field>
-        <field name="Units">%</field>
-        <field name="UnitText">percent</field>
-      </param>
-      <param humanName="Quicktune oscillation rate threshold" name="QUIK_OSC_SMAX" documentation="Threshold for oscillation detection. A lower value will lead to a more conservative tune." user="Standard">
-        <field name="Range">1 10</field>
-      </param>
-      <param humanName="Quicktune Yaw P max" name="QUIK_YAW_P_MAX" documentation="Maximum value for yaw P gain" user="Standard">
-        <field name="Range">0.1 3</field>
-      </param>
-      <param humanName="Quicktune Yaw D max" name="QUIK_YAW_D_MAX" documentation="Maximum value for yaw D gain" user="Standard">
-        <field name="Range">0.001 1</field>
-      </param>
-      <param humanName="Quicktune roll/pitch PI ratio" name="QUIK_RP_PI_RATIO" documentation="Ratio between P and I gains for roll and pitch. Raise this to get a lower I gain" user="Standard">
-        <field name="Range">0.5 1.0</field>
-      </param>
-      <param humanName="Quicktune Yaw PI ratio" name="QUIK_Y_PI_RATIO" documentation="Ratio between P and I gains for yaw. Raise this to get a lower I gain" user="Standard">
-        <field name="Range">0.5 20</field>
-      </param>
-      <param humanName="Quicktune auto filter enable" name="QUIK_AUTO_FILTER" documentation="When enabled the PID filter settings are automatically set based on INS_GYRO_FILTER" user="Standard">
-        <values>
-          <value code="0">Disabled</value>
-          <value code="1">Enabled</value>
-        </values>
-      </param>
-      <param humanName="Quicktune auto save" name="QUIK_AUTO_SAVE" documentation="Number of seconds after completion of tune to auto-save. This is useful when using a 2 position switch for quicktune" user="Standard">
-        <field name="Units">s</field>
-        <field name="UnitText">seconds</field>
-      </param>
-      <param humanName="Quicktune RC function" name="QUIK_RC_FUNC" documentation="RCn_OPTION number to use to control tuning stop/start/save" user="Standard">
-</param>
-      <param humanName="Quicktune maximum gain reduction" name="QUIK_MAX_REDUCE" documentation="This controls how much quicktune is allowed to lower gains from the original gains. If the vehicle already has a reasonable tune and is not oscillating then you can set this to zero to prevent gain reductions. The default of 20% is reasonable for most vehicles. Using a maximum gain reduction lowers the chance of an angle P oscillation happening if quicktune gets a false positive oscillation at a low gain, which can result in very low rate gains and a dangerous angle P oscillation." user="Standard">
-        <field name="Units">%</field>
-        <field name="UnitText">percent</field>
-        <field name="Range">0 100</field>
-      </param>
-      <param humanName="Deadreckoning Enable" name="DR_ENABLE" documentation="Deadreckoning Enable" user="Standard">
-        <values>
-          <value code="0">Disabled</value>
-          <value code="1">Enabled</value>
-        </values>
-      </param>
-      <param humanName="Deadreckoning Enable Distance" name="DR_ENABLE_DIST" documentation="Distance from home (in meters) beyond which the dead reckoning will be enabled" user="Standard">
-        <field name="Units">m</field>
-        <field name="UnitText">meters</field>
-      </param>
-      <param humanName="Deadreckoning GPS speed accuracy maximum threshold" name="DR_GPS_SACC_MAX" documentation="GPS speed accuracy maximum, above which deadreckoning home will begin (default is 0.8).  Lower values trigger with good GPS quality, higher values will allow poorer GPS before triggering. Set to 0 to disable use of GPS speed accuracy" user="Standard">
-        <field name="Range">0 10</field>
-      </param>
-      <param humanName="Deadreckoning GPS satellite count min threshold" name="DR_GPS_SAT_MIN" documentation="GPS satellite count threshold below which deadreckoning home will begin (default is 6).  Higher values trigger with good GPS quality, Lower values trigger with worse GPS quality. Set to 0 to disable use of GPS satellite count" user="Standard">
-        <field name="Range">0 30</field>
-      </param>
-      <param humanName="Deadreckoning GPS check trigger seconds" name="DR_GPS_TRIGG_SEC" documentation="GPS checks must fail for this many seconds before dead reckoning will be triggered" user="Standard">
-        <field name="Units">s</field>
-        <field name="UnitText">seconds</field>
-      </param>
-      <param humanName="Deadreckoning Lean Angle" name="DR_FLY_ANGLE" documentation="lean angle (in degrees) during deadreckoning" user="Standard">
-        <field name="Units">deg</field>
-        <field name="UnitText">degrees</field>
-        <field name="Range">0 45</field>
-      </param>
-      <param humanName="Deadreckoning Altitude Min" name="DR_FLY_ALT_MIN" documentation="Copter will fly at at least this altitude (in meters) above home during deadreckoning" user="Standard">
-        <field name="Units">m</field>
-        <field name="UnitText">meters</field>
-        <field name="Range">0 1000</field>
-      </param>
-      <param humanName="Deadreckoning flight timeout" name="DR_FLY_TIMEOUT" documentation="Copter will attempt to switch to NEXT_MODE after this many seconds of deadreckoning.  If it cannot switch modes it will continue in Guided_NoGPS.  Set to 0 to disable timeout" user="Standard">
-        <field name="Units">s</field>
-        <field name="UnitText">seconds</field>
-      </param>
-      <param humanName="Deadreckoning Next Mode" name="DR_NEXT_MODE" documentation="Copter switch to this mode after GPS recovers or DR_FLY_TIMEOUT has elapsed.  Default is 6/RTL.  Set to -1 to return to mode used before deadreckoning was triggered" user="Standard">
-        <values>
-          <value code="2">AltHold</value>
-          <value code="3">Auto</value>
-          <value code="4">Guided</value>
-          <value code="5">Loiter</value>
-          <value code="6">RTL</value>
-          <value code="7">Circle</value>
-          <value code="9">Land</value>
-          <value code="16">PosHold</value>
-          <value code="17">Brake</value>
-          <value code="20">Guided_NoGPS</value>
-          <value code="21">Smart_RTL</value>
-          <value code="27">Auto RTL</value>
-        </values>
-      </param>
       <param humanName="Ship landing enable" name="SHIP_ENABLE" documentation="Enable ship landing system" user="Standard">
         <values>
           <value code="0">Disabled</value>
@@ -989,6 +888,107 @@
           <value code="306">Scripting7</value>
           <value code="307">Scripting8</value>
         </values>
+      </param>
+      <param humanName="Deadreckoning Enable" name="DR_ENABLE" documentation="Deadreckoning Enable" user="Standard">
+        <values>
+          <value code="0">Disabled</value>
+          <value code="1">Enabled</value>
+        </values>
+      </param>
+      <param humanName="Deadreckoning Enable Distance" name="DR_ENABLE_DIST" documentation="Distance from home (in meters) beyond which the dead reckoning will be enabled" user="Standard">
+        <field name="Units">m</field>
+        <field name="UnitText">meters</field>
+      </param>
+      <param humanName="Deadreckoning GPS speed accuracy maximum threshold" name="DR_GPS_SACC_MAX" documentation="GPS speed accuracy maximum, above which deadreckoning home will begin (default is 0.8).  Lower values trigger with good GPS quality, higher values will allow poorer GPS before triggering. Set to 0 to disable use of GPS speed accuracy" user="Standard">
+        <field name="Range">0 10</field>
+      </param>
+      <param humanName="Deadreckoning GPS satellite count min threshold" name="DR_GPS_SAT_MIN" documentation="GPS satellite count threshold below which deadreckoning home will begin (default is 6).  Higher values trigger with good GPS quality, Lower values trigger with worse GPS quality. Set to 0 to disable use of GPS satellite count" user="Standard">
+        <field name="Range">0 30</field>
+      </param>
+      <param humanName="Deadreckoning GPS check trigger seconds" name="DR_GPS_TRIGG_SEC" documentation="GPS checks must fail for this many seconds before dead reckoning will be triggered" user="Standard">
+        <field name="Units">s</field>
+        <field name="UnitText">seconds</field>
+      </param>
+      <param humanName="Deadreckoning Lean Angle" name="DR_FLY_ANGLE" documentation="lean angle (in degrees) during deadreckoning" user="Standard">
+        <field name="Units">deg</field>
+        <field name="UnitText">degrees</field>
+        <field name="Range">0 45</field>
+      </param>
+      <param humanName="Deadreckoning Altitude Min" name="DR_FLY_ALT_MIN" documentation="Copter will fly at at least this altitude (in meters) above home during deadreckoning" user="Standard">
+        <field name="Units">m</field>
+        <field name="UnitText">meters</field>
+        <field name="Range">0 1000</field>
+      </param>
+      <param humanName="Deadreckoning flight timeout" name="DR_FLY_TIMEOUT" documentation="Copter will attempt to switch to NEXT_MODE after this many seconds of deadreckoning.  If it cannot switch modes it will continue in Guided_NoGPS.  Set to 0 to disable timeout" user="Standard">
+        <field name="Units">s</field>
+        <field name="UnitText">seconds</field>
+      </param>
+      <param humanName="Deadreckoning Next Mode" name="DR_NEXT_MODE" documentation="Copter switch to this mode after GPS recovers or DR_FLY_TIMEOUT has elapsed.  Default is 6/RTL.  Set to -1 to return to mode used before deadreckoning was triggered" user="Standard">
+        <values>
+          <value code="2">AltHold</value>
+          <value code="3">Auto</value>
+          <value code="4">Guided</value>
+          <value code="5">Loiter</value>
+          <value code="6">RTL</value>
+          <value code="7">Circle</value>
+          <value code="9">Land</value>
+          <value code="16">PosHold</value>
+          <value code="17">Brake</value>
+          <value code="20">Guided_NoGPS</value>
+          <value code="21">Smart_RTL</value>
+          <value code="27">Auto RTL</value>
+        </values>
+      </param>
+      <param humanName="Quicktune enable" name="QUIK_ENABLE" documentation="Enable quicktune system" user="Standard">
+        <values>
+          <value code="0">Disabled</value>
+          <value code="1">Enabled</value>
+        </values>
+      </param>
+      <param humanName="Quicktune axes" name="QUIK_AXES" documentation="axes to tune" user="Standard">
+        <field name="Bitmask">0:Roll,1:Pitch,2:Yaw</field>
+      </param>
+      <param humanName="Quicktune doubling time" name="QUIK_DOUBLE_TIME" documentation="Time to double a tuning parameter. Raise this for a slower tune." user="Standard">
+        <field name="Range">5 20</field>
+        <field name="Units">s</field>
+        <field name="UnitText">seconds</field>
+      </param>
+      <param humanName="Quicktune gain margin" name="QUIK_GAIN_MARGIN" documentation="Reduction in gain after oscillation detected. Raise this number to get a more conservative tune" user="Standard">
+        <field name="Range">20 80</field>
+        <field name="Units">%</field>
+        <field name="UnitText">percent</field>
+      </param>
+      <param humanName="Quicktune oscillation rate threshold" name="QUIK_OSC_SMAX" documentation="Threshold for oscillation detection. A lower value will lead to a more conservative tune." user="Standard">
+        <field name="Range">1 10</field>
+      </param>
+      <param humanName="Quicktune Yaw P max" name="QUIK_YAW_P_MAX" documentation="Maximum value for yaw P gain" user="Standard">
+        <field name="Range">0.1 3</field>
+      </param>
+      <param humanName="Quicktune Yaw D max" name="QUIK_YAW_D_MAX" documentation="Maximum value for yaw D gain" user="Standard">
+        <field name="Range">0.001 1</field>
+      </param>
+      <param humanName="Quicktune roll/pitch PI ratio" name="QUIK_RP_PI_RATIO" documentation="Ratio between P and I gains for roll and pitch. Raise this to get a lower I gain" user="Standard">
+        <field name="Range">0.5 1.0</field>
+      </param>
+      <param humanName="Quicktune Yaw PI ratio" name="QUIK_Y_PI_RATIO" documentation="Ratio between P and I gains for yaw. Raise this to get a lower I gain" user="Standard">
+        <field name="Range">0.5 20</field>
+      </param>
+      <param humanName="Quicktune auto filter enable" name="QUIK_AUTO_FILTER" documentation="When enabled the PID filter settings are automatically set based on INS_GYRO_FILTER" user="Standard">
+        <values>
+          <value code="0">Disabled</value>
+          <value code="1">Enabled</value>
+        </values>
+      </param>
+      <param humanName="Quicktune auto save" name="QUIK_AUTO_SAVE" documentation="Number of seconds after completion of tune to auto-save. This is useful when using a 2 position switch for quicktune" user="Standard">
+        <field name="Units">s</field>
+        <field name="UnitText">seconds</field>
+      </param>
+      <param humanName="Quicktune RC function" name="QUIK_RC_FUNC" documentation="RCn_OPTION number to use to control tuning stop/start/save" user="Standard">
+</param>
+      <param humanName="Quicktune maximum gain reduction" name="QUIK_MAX_REDUCE" documentation="This controls how much quicktune is allowed to lower gains from the original gains. If the vehicle already has a reasonable tune and is not oscillating then you can set this to zero to prevent gain reductions. The default of 20% is reasonable for most vehicles. Using a maximum gain reduction lowers the chance of an angle P oscillation happening if quicktune gets a false positive oscillation at a low gain, which can result in very low rate gains and a dangerous angle P oscillation." user="Standard">
+        <field name="Units">%</field>
+        <field name="UnitText">percent</field>
+        <field name="Range">0 100</field>
       </param>
       <param humanName="Enable SkyPower EFI support" name="EFI_SP_ENABLE" documentation="Enable SkyPower EFI support" user="Standard">
         <values>

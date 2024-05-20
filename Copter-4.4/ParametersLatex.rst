@@ -2666,425 +2666,6 @@ Enables the Rockblock sending and recieving
 
 
 
-.. _QUIK_ENABLE:
-
-QUIK\_ENABLE: Quicktune enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Enable quicktune system
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _QUIK_AXES:
-
-QUIK\_AXES: Quicktune axes
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-axes to tune
-
-
-+-----+---------+
-| Bit | Meaning |
-+=====+=========+
-| 0   | Roll    |
-+-----+---------+
-| 1   | Pitch   |
-+-----+---------+
-| 2   | Yaw     |
-+-----+---------+
-
-
-
-
-.. _QUIK_DOUBLE_TIME:
-
-QUIK\_DOUBLE\_TIME: Quicktune doubling time
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Time to double a tuning parameter\. Raise this for a slower tune\.
-
-
-+---------+---------+
-| Range   | Units   |
-+=========+=========+
-| 5 to 20 | seconds |
-+---------+---------+
-
-
-
-
-.. _QUIK_GAIN_MARGIN:
-
-QUIK\_GAIN\_MARGIN: Quicktune gain margin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Reduction in gain after oscillation detected\. Raise this number to get a more conservative tune
-
-
-+----------+---------+
-| Range    | Units   |
-+==========+=========+
-| 20 to 80 | percent |
-+----------+---------+
-
-
-
-
-.. _QUIK_OSC_SMAX:
-
-QUIK\_OSC\_SMAX: Quicktune oscillation rate threshold
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Threshold for oscillation detection\. A lower value will lead to a more conservative tune\.
-
-
-+---------+
-| Range   |
-+=========+
-| 1 to 10 |
-+---------+
-
-
-
-
-.. _QUIK_YAW_P_MAX:
-
-QUIK\_YAW\_P\_MAX: Quicktune Yaw P max
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Maximum value for yaw P gain
-
-
-+----------+
-| Range    |
-+==========+
-| 0.1 to 3 |
-+----------+
-
-
-
-
-.. _QUIK_YAW_D_MAX:
-
-QUIK\_YAW\_D\_MAX: Quicktune Yaw D max
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Maximum value for yaw D gain
-
-
-+------------+
-| Range      |
-+============+
-| 0.001 to 1 |
-+------------+
-
-
-
-
-.. _QUIK_RP_PI_RATIO:
-
-QUIK\_RP\_PI\_RATIO: Quicktune roll\/pitch PI ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between P and I gains for roll and pitch\. Raise this to get a lower I gain
-
-
-+------------+
-| Range      |
-+============+
-| 0.5 to 1.0 |
-+------------+
-
-
-
-
-.. _QUIK_Y_PI_RATIO:
-
-QUIK\_Y\_PI\_RATIO: Quicktune Yaw PI ratio
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Ratio between P and I gains for yaw\. Raise this to get a lower I gain
-
-
-+-----------+
-| Range     |
-+===========+
-| 0.5 to 20 |
-+-----------+
-
-
-
-
-.. _QUIK_AUTO_FILTER:
-
-QUIK\_AUTO\_FILTER: Quicktune auto filter enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-When enabled the PID filter settings are automatically set based on INS\_GYRO\_FILTER
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _QUIK_AUTO_SAVE:
-
-QUIK\_AUTO\_SAVE: Quicktune auto save
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Number of seconds after completion of tune to auto\-save\. This is useful when using a 2 position switch for quicktune
-
-
-+---------+
-| Units   |
-+=========+
-| seconds |
-+---------+
-
-
-
-
-.. _QUIK_RC_FUNC:
-
-QUIK\_RC\_FUNC: Quicktune RC function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-RCn\_OPTION number to use to control tuning stop\/start\/save
-
-
-.. _QUIK_MAX_REDUCE:
-
-QUIK\_MAX\_REDUCE: Quicktune maximum gain reduction
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-This controls how much quicktune is allowed to lower gains from the original gains\. If the vehicle already has a reasonable tune and is not oscillating then you can set this to zero to prevent gain reductions\. The default of 20\% is reasonable for most vehicles\. Using a maximum gain reduction lowers the chance of an angle P oscillation happening if quicktune gets a false positive oscillation at a low gain\, which can result in very low rate gains and a dangerous angle P oscillation\.
-
-
-+----------+---------+
-| Range    | Units   |
-+==========+=========+
-| 0 to 100 | percent |
-+----------+---------+
-
-
-
-
-.. _DR_ENABLE:
-
-DR\_ENABLE: Deadreckoning Enable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Deadreckoning Enable
-
-
-+-------+----------+
-| Value | Meaning  |
-+=======+==========+
-| 0     | Disabled |
-+-------+----------+
-| 1     | Enabled  |
-+-------+----------+
-
-
-
-
-.. _DR_ENABLE_DIST:
-
-DR\_ENABLE\_DIST: Deadreckoning Enable Distance
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Distance from home \(in meters\) beyond which the dead reckoning will be enabled
-
-
-+--------+
-| Units  |
-+========+
-| meters |
-+--------+
-
-
-
-
-.. _DR_GPS_SACC_MAX:
-
-DR\_GPS\_SACC\_MAX: Deadreckoning GPS speed accuracy maximum threshold
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-GPS speed accuracy maximum\, above which deadreckoning home will begin \(default is 0\.8\)\.  Lower values trigger with good GPS quality\, higher values will allow poorer GPS before triggering\. Set to 0 to disable use of GPS speed accuracy
-
-
-+---------+
-| Range   |
-+=========+
-| 0 to 10 |
-+---------+
-
-
-
-
-.. _DR_GPS_SAT_MIN:
-
-DR\_GPS\_SAT\_MIN: Deadreckoning GPS satellite count min threshold
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-GPS satellite count threshold below which deadreckoning home will begin \(default is 6\)\.  Higher values trigger with good GPS quality\, Lower values trigger with worse GPS quality\. Set to 0 to disable use of GPS satellite count
-
-
-+---------+
-| Range   |
-+=========+
-| 0 to 30 |
-+---------+
-
-
-
-
-.. _DR_GPS_TRIGG_SEC:
-
-DR\_GPS\_TRIGG\_SEC: Deadreckoning GPS check trigger seconds
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-GPS checks must fail for this many seconds before dead reckoning will be triggered
-
-
-+---------+
-| Units   |
-+=========+
-| seconds |
-+---------+
-
-
-
-
-.. _DR_FLY_ANGLE:
-
-DR\_FLY\_ANGLE: Deadreckoning Lean Angle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-lean angle \(in degrees\) during deadreckoning
-
-
-+---------+---------+
-| Range   | Units   |
-+=========+=========+
-| 0 to 45 | degrees |
-+---------+---------+
-
-
-
-
-.. _DR_FLY_ALT_MIN:
-
-DR\_FLY\_ALT\_MIN: Deadreckoning Altitude Min
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Copter will fly at at least this altitude \(in meters\) above home during deadreckoning
-
-
-+-----------+--------+
-| Range     | Units  |
-+===========+========+
-| 0 to 1000 | meters |
-+-----------+--------+
-
-
-
-
-.. _DR_FLY_TIMEOUT:
-
-DR\_FLY\_TIMEOUT: Deadreckoning flight timeout
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Copter will attempt to switch to NEXT\_MODE after this many seconds of deadreckoning\.  If it cannot switch modes it will continue in Guided\_NoGPS\.  Set to 0 to disable timeout
-
-
-+---------+
-| Units   |
-+=========+
-| seconds |
-+---------+
-
-
-
-
-.. _DR_NEXT_MODE:
-
-DR\_NEXT\_MODE: Deadreckoning Next Mode
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Copter switch to this mode after GPS recovers or DR\_FLY\_TIMEOUT has elapsed\.  Default is 6\/RTL\.  Set to \-1 to return to mode used before deadreckoning was triggered
-
-
-+-------+--------------+
-| Value | Meaning      |
-+=======+==============+
-| 2     | AltHold      |
-+-------+--------------+
-| 3     | Auto         |
-+-------+--------------+
-| 4     | Guided       |
-+-------+--------------+
-| 5     | Loiter       |
-+-------+--------------+
-| 6     | RTL          |
-+-------+--------------+
-| 7     | Circle       |
-+-------+--------------+
-| 9     | Land         |
-+-------+--------------+
-| 16    | PosHold      |
-+-------+--------------+
-| 17    | Brake        |
-+-------+--------------+
-| 20    | Guided_NoGPS |
-+-------+--------------+
-| 21    | Smart_RTL    |
-+-------+--------------+
-| 27    | Auto RTL     |
-+-------+--------------+
-
-
-
-
 .. _SHIP_ENABLE:
 
 SHIP\_ENABLE: Ship landing enable
@@ -3357,6 +2938,425 @@ RCn\_OPTION number to use to control tuning stop\/start\/save
 +-------+------------+
 | 307   | Scripting8 |
 +-------+------------+
+
+
+
+
+.. _DR_ENABLE:
+
+DR\_ENABLE: Deadreckoning Enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Deadreckoning Enable
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _DR_ENABLE_DIST:
+
+DR\_ENABLE\_DIST: Deadreckoning Enable Distance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Distance from home \(in meters\) beyond which the dead reckoning will be enabled
+
+
++--------+
+| Units  |
++========+
+| meters |
++--------+
+
+
+
+
+.. _DR_GPS_SACC_MAX:
+
+DR\_GPS\_SACC\_MAX: Deadreckoning GPS speed accuracy maximum threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+GPS speed accuracy maximum\, above which deadreckoning home will begin \(default is 0\.8\)\.  Lower values trigger with good GPS quality\, higher values will allow poorer GPS before triggering\. Set to 0 to disable use of GPS speed accuracy
+
+
++---------+
+| Range   |
++=========+
+| 0 to 10 |
++---------+
+
+
+
+
+.. _DR_GPS_SAT_MIN:
+
+DR\_GPS\_SAT\_MIN: Deadreckoning GPS satellite count min threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+GPS satellite count threshold below which deadreckoning home will begin \(default is 6\)\.  Higher values trigger with good GPS quality\, Lower values trigger with worse GPS quality\. Set to 0 to disable use of GPS satellite count
+
+
++---------+
+| Range   |
++=========+
+| 0 to 30 |
++---------+
+
+
+
+
+.. _DR_GPS_TRIGG_SEC:
+
+DR\_GPS\_TRIGG\_SEC: Deadreckoning GPS check trigger seconds
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+GPS checks must fail for this many seconds before dead reckoning will be triggered
+
+
++---------+
+| Units   |
++=========+
+| seconds |
++---------+
+
+
+
+
+.. _DR_FLY_ANGLE:
+
+DR\_FLY\_ANGLE: Deadreckoning Lean Angle
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+lean angle \(in degrees\) during deadreckoning
+
+
++---------+---------+
+| Range   | Units   |
++=========+=========+
+| 0 to 45 | degrees |
++---------+---------+
+
+
+
+
+.. _DR_FLY_ALT_MIN:
+
+DR\_FLY\_ALT\_MIN: Deadreckoning Altitude Min
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Copter will fly at at least this altitude \(in meters\) above home during deadreckoning
+
+
++-----------+--------+
+| Range     | Units  |
++===========+========+
+| 0 to 1000 | meters |
++-----------+--------+
+
+
+
+
+.. _DR_FLY_TIMEOUT:
+
+DR\_FLY\_TIMEOUT: Deadreckoning flight timeout
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Copter will attempt to switch to NEXT\_MODE after this many seconds of deadreckoning\.  If it cannot switch modes it will continue in Guided\_NoGPS\.  Set to 0 to disable timeout
+
+
++---------+
+| Units   |
++=========+
+| seconds |
++---------+
+
+
+
+
+.. _DR_NEXT_MODE:
+
+DR\_NEXT\_MODE: Deadreckoning Next Mode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Copter switch to this mode after GPS recovers or DR\_FLY\_TIMEOUT has elapsed\.  Default is 6\/RTL\.  Set to \-1 to return to mode used before deadreckoning was triggered
+
+
++-------+--------------+
+| Value | Meaning      |
++=======+==============+
+| 2     | AltHold      |
++-------+--------------+
+| 3     | Auto         |
++-------+--------------+
+| 4     | Guided       |
++-------+--------------+
+| 5     | Loiter       |
++-------+--------------+
+| 6     | RTL          |
++-------+--------------+
+| 7     | Circle       |
++-------+--------------+
+| 9     | Land         |
++-------+--------------+
+| 16    | PosHold      |
++-------+--------------+
+| 17    | Brake        |
++-------+--------------+
+| 20    | Guided_NoGPS |
++-------+--------------+
+| 21    | Smart_RTL    |
++-------+--------------+
+| 27    | Auto RTL     |
++-------+--------------+
+
+
+
+
+.. _QUIK_ENABLE:
+
+QUIK\_ENABLE: Quicktune enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Enable quicktune system
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _QUIK_AXES:
+
+QUIK\_AXES: Quicktune axes
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+axes to tune
+
+
++-----+---------+
+| Bit | Meaning |
++=====+=========+
+| 0   | Roll    |
++-----+---------+
+| 1   | Pitch   |
++-----+---------+
+| 2   | Yaw     |
++-----+---------+
+
+
+
+
+.. _QUIK_DOUBLE_TIME:
+
+QUIK\_DOUBLE\_TIME: Quicktune doubling time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Time to double a tuning parameter\. Raise this for a slower tune\.
+
+
++---------+---------+
+| Range   | Units   |
++=========+=========+
+| 5 to 20 | seconds |
++---------+---------+
+
+
+
+
+.. _QUIK_GAIN_MARGIN:
+
+QUIK\_GAIN\_MARGIN: Quicktune gain margin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Reduction in gain after oscillation detected\. Raise this number to get a more conservative tune
+
+
++----------+---------+
+| Range    | Units   |
++==========+=========+
+| 20 to 80 | percent |
++----------+---------+
+
+
+
+
+.. _QUIK_OSC_SMAX:
+
+QUIK\_OSC\_SMAX: Quicktune oscillation rate threshold
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Threshold for oscillation detection\. A lower value will lead to a more conservative tune\.
+
+
++---------+
+| Range   |
++=========+
+| 1 to 10 |
++---------+
+
+
+
+
+.. _QUIK_YAW_P_MAX:
+
+QUIK\_YAW\_P\_MAX: Quicktune Yaw P max
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Maximum value for yaw P gain
+
+
++----------+
+| Range    |
++==========+
+| 0.1 to 3 |
++----------+
+
+
+
+
+.. _QUIK_YAW_D_MAX:
+
+QUIK\_YAW\_D\_MAX: Quicktune Yaw D max
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Maximum value for yaw D gain
+
+
++------------+
+| Range      |
++============+
+| 0.001 to 1 |
++------------+
+
+
+
+
+.. _QUIK_RP_PI_RATIO:
+
+QUIK\_RP\_PI\_RATIO: Quicktune roll\/pitch PI ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between P and I gains for roll and pitch\. Raise this to get a lower I gain
+
+
++------------+
+| Range      |
++============+
+| 0.5 to 1.0 |
++------------+
+
+
+
+
+.. _QUIK_Y_PI_RATIO:
+
+QUIK\_Y\_PI\_RATIO: Quicktune Yaw PI ratio
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Ratio between P and I gains for yaw\. Raise this to get a lower I gain
+
+
++-----------+
+| Range     |
++===========+
+| 0.5 to 20 |
++-----------+
+
+
+
+
+.. _QUIK_AUTO_FILTER:
+
+QUIK\_AUTO\_FILTER: Quicktune auto filter enable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+When enabled the PID filter settings are automatically set based on INS\_GYRO\_FILTER
+
+
++-------+----------+
+| Value | Meaning  |
++=======+==========+
+| 0     | Disabled |
++-------+----------+
+| 1     | Enabled  |
++-------+----------+
+
+
+
+
+.. _QUIK_AUTO_SAVE:
+
+QUIK\_AUTO\_SAVE: Quicktune auto save
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Number of seconds after completion of tune to auto\-save\. This is useful when using a 2 position switch for quicktune
+
+
++---------+
+| Units   |
++=========+
+| seconds |
++---------+
+
+
+
+
+.. _QUIK_RC_FUNC:
+
+QUIK\_RC\_FUNC: Quicktune RC function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+RCn\_OPTION number to use to control tuning stop\/start\/save
+
+
+.. _QUIK_MAX_REDUCE:
+
+QUIK\_MAX\_REDUCE: Quicktune maximum gain reduction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+This controls how much quicktune is allowed to lower gains from the original gains\. If the vehicle already has a reasonable tune and is not oscillating then you can set this to zero to prevent gain reductions\. The default of 20\% is reasonable for most vehicles\. Using a maximum gain reduction lowers the chance of an angle P oscillation happening if quicktune gets a false positive oscillation at a low gain\, which can result in very low rate gains and a dangerous angle P oscillation\.
+
+
++----------+---------+
+| Range    | Units   |
++==========+=========+
+| 0 to 100 | percent |
++----------+---------+
 
 
 
