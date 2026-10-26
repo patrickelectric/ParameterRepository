@@ -1,0 +1,57 @@
+name: Webpage
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_run:
+    workflows: ["Run Python Script and Commit Changes"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: curl -sL https://github.com/getzola/zola/releases/download/v0.20.0/zola-v0.20.0-x86_64-unknown-linux-gnu.tar.gz | sudo tar xz -C /usr/local/bin
+      - run: pip install pytest playwright && playwright install --with-deps chromium
+      - run: python webpage/tools/build_params.py
+      - run: pytest webpage/tools
+      - run: zola check && zola build --base-url http://127.0.0.1:1111
+        working-directory: webpage
+      - run: |
+          python -m http.server 1111 -d webpage/public &
+          sleep 2
+          python webpage/tools/validate_site.py --out webpage/validation
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: webpage/validation
+      - run: zola build
+        working-directory: webpage
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: webpage/public
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
