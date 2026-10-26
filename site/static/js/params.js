@@ -47,9 +47,10 @@ function fillChips() {
 
 function search() {
   const q = $('q').value.trim();
-  hits = q ? ms.search(q, { prefix: true, fuzzy: 0.2, boost: { n: 3 } }) : rows.slice();
-  // equal scores: shorter name first, so ATC_RAT_RLL_P outranks ATC_RAT_RLL_FLTD
-  if (q) hits.sort((a, b) => b.score - a.score || a.n.length - b.n.length);
+  // every term must match; fuzzy only as a fallback since results are alphabetical, not ranked
+  hits = q ? ms.search(q, { prefix: true, combineWith: 'AND' }) : rows.slice();
+  if (q && !hits.length) hits = ms.search(q, { prefix: true, combineWith: 'AND', fuzzy: 0.2 });
+  hits.sort((a, b) => (a.n > b.n) - (a.n < b.n)); // codepoint order, same as the JSON
   const i = hits.findIndex(h => h.n === q.toUpperCase().replace(/\s+/g, '_'));
   if (i > 0) hits.unshift(...hits.splice(i, 1));
   if (group) hits = hits.filter(h => h.n.split('_')[0] === group);
@@ -64,9 +65,7 @@ function more() {
     const tr = document.createElement('tr');
     tr.className = 'p';
     const terms = h.match ? Object.keys(h.match) : [];
-    const b = document.createElement('b'); b.append(marked(h.t + ' ', terms));
-    const desc = td(h.d, null, terms); desc.prepend(b);
-    tr.append(td(h.n, 'n', terms), desc, td(h.r ? h.r.join(' to ') : ''), td(h.u || ''));
+    tr.append(td(h.n, 'n', terms), td(h.d || h.t, null, terms), td(h.r ? h.r.join(' to ') : ''), td(h.u || ''));
     tr.onclick = () => {
       const next = tr.nextElementSibling;
       if (next?.classList.contains('x')) return next.remove();
