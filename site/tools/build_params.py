@@ -18,7 +18,7 @@ def flatten(pdef):
                 row["r"] = [p["Range"]["low"], p["Range"]["high"]]
             row.update({dst: p[src] for src, dst in KEYS if src in p})
             rows.append(row)
-    return rows
+    return sorted(rows, key=lambda r: r["n"])
 
 
 def main():
