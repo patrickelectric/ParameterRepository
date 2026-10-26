@@ -92,6 +92,13 @@ def main():
         check(page.input_value("#vehicle") == "Plane" and page.eval_on_selector("#version", "e => e.selectedIndex") == 0
               and page.input_value("#q") == "TRIM" and "TRIM_THROTTLE" in names(page), "hash restores vehicle, version and query")
 
+        page.route("**/data/Blimp-*.json", lambda route: (page.wait_for_timeout(1500), route.continue_()))
+        page.select_option("#vehicle", "Blimp")
+        check(page.inner_text("#count") == "Loading…" and page.get_attribute("#params", "aria-busy") == "true", "loading state shows while fetching")
+        page.wait_for_selector('#params[data-loaded^="Blimp-"]')
+        check(page.inner_text("#count").endswith("parameters") and page.get_attribute("#params", "aria-busy") is None, "loading state clears after fetch")
+        page.unroute("**/data/Blimp-*.json")
+
         page.screenshot(path=out / "default.png", full_page=True)
         page.click("#mode")
         page.screenshot(path=out / "toggled.png", full_page=True)
