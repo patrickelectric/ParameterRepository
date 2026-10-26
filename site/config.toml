@@ -1,4 +1,4 @@
-base_url = "https://patrickelectric.github.io/ParameterRepository"
+base_url = "https://patrickelectric.work/ParameterRepository"
 title = "ArduPilot Parameters"
 description = "Search ArduPilot parameters across vehicles and firmware versions."
 default_language = "en"
