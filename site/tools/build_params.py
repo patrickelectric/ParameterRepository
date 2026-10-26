@@ -31,6 +31,7 @@ def main():
         index.setdefault(vehicle, []).append(version)
     for versions in index.values():
         versions.sort(key=lambda v: [int(x) for x in v.split(".")], reverse=True)
+    index = dict(sorted(index.items(), key=lambda kv: kv[0] != "Copter"))  # Copter is the default vehicle
     (OUT / "index.json").write_text(json.dumps(index))
     print(f"wrote {sum(map(len, index.values()))} files for {len(index)} vehicles")
 
