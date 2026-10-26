@@ -43,6 +43,7 @@ def main():
         page = p.chromium.launch(channel=os.environ.get("PW_CHANNEL")).new_page(viewport={"width": 1400, "height": 900})
         errors = []
         page.on("pageerror", lambda e: errors.append(str(e)))
+        page.on("response", lambda r: errors.append(f"{r.status} {r.url}") if r.status >= 400 else None)
         page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
         page.goto(f"{base}/params/")
 
