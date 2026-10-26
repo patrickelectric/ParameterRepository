@@ -4,6 +4,7 @@
 #chips button { font-size: .8em; padding: .1em .5em; }
 #chips button.on { background: var(--a1); color: var(--c1); }
 #params { width: 100%; border-collapse: collapse; }
+#params[aria-busy] { opacity: .5; }
 #params th { position: sticky; top: 0; background: var(--c2); text-align: left; }
 #params td.n { font-family: monospace; white-space: nowrap; }
 #params tr.p { cursor: pointer; }
