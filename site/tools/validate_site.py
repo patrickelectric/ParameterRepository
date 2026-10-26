@@ -47,8 +47,14 @@ def main():
         page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
         page.goto(f"{base}/params/")
 
-        run(page, "Copter", "latest", "ATC_RAT_RLL_P")
+        run(page, "Copter", "latest", "")
+        n = names(page)
+        check(n == sorted(n), "unfiltered table is alphabetical")
+        page.fill("#q", "ATC_RAT_RLL_P")
         check(names(page)[:1] == ["ATC_RAT_RLL_P"], "exact search ranks ATC_RAT_RLL_P first")
+        check(page.locator("#params tr.p").first.locator("td.n mark").all_inner_texts() == ["ATC", "RAT", "RLL", "P"], "query terms are highlighted in the name")
+        page.fill("#q", "roll rate")
+        check(page.locator("#params tr.p").first.locator("td:nth-child(2) mark").count() > 0, "query terms are highlighted in the description")
         for q in ("ATC_RTA_RLL", "atc rat rll"):
             page.fill("#q", q)
             check("ATC_RAT_RLL_P" in names(page)[:5], f"fuzzy search {q!r} ranks ATC_RAT_RLL_P in top 5")
