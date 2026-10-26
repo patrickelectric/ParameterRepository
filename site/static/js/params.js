@@ -80,7 +80,16 @@ function more() {
 
 async function reload() {
   const file = `${$('vehicle').value}-${$('version').value}`, my = ++gen;
-  rows = await load(file);
+  $('count').textContent = 'Loading…';
+  table.setAttribute('aria-busy', 'true');
+  try {
+    rows = await load(file);
+  } catch (e) {
+    $('count').textContent = `Failed to load ${file}`;
+    throw e;
+  } finally {
+    if (my === gen) table.removeAttribute('aria-busy');
+  }
   if (my !== gen) return; // a newer selection won
   ms = new MiniSearch({ fields: ['n', 'd'], storeFields: ['n', 't', 'd', 'r', 'u', 'v', 'b'], idField: 'n' });
   ms.addAll(rows);
