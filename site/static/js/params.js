@@ -7,7 +7,26 @@ const cache = new Map();
 let rows = [], ms, hits = [], shown = 0, group = '', gen = 0;
 
 const fmtMap = m => Object.entries(m).map(([k, v]) => `${k}: ${v}`).join(', ');
-const td = (text, cls) => { const e = document.createElement('td'); e.textContent = text; if (cls) e.className = cls; return e; };
+const esc = t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// text with every matched term wrapped in <mark>
+function marked(text, terms) {
+  const frag = document.createDocumentFragment();
+  let last = 0;
+  for (const m of terms.length ? text.matchAll(new RegExp(terms.map(esc).join('|'), 'gi')) : []) {
+    frag.append(text.slice(last, m.index), Object.assign(document.createElement('mark'), { textContent: m[0] }));
+    last = m.index + m[0].length;
+  }
+  frag.append(text.slice(last));
+  return frag;
+}
+
+function td(text, cls, terms = []) {
+  const e = document.createElement('td');
+  e.append(marked(text, terms));
+  if (cls) e.className = cls;
+  return e;
+}
 
 function load(file) {
   if (!cache.has(file)) cache.set(file, fetch(`${table.dataset.base}/${file}.json`).then(r => {
@@ -44,8 +63,10 @@ function more() {
   for (const h of hits.slice(shown, shown + 300)) {
     const tr = document.createElement('tr');
     tr.className = 'p';
-    const desc = td(h.d); desc.prepend(Object.assign(document.createElement('b'), { textContent: h.t + ' ' }));
-    tr.append(td(h.n, 'n'), desc, td(h.r ? h.r.join(' to ') : ''), td(h.u || ''));
+    const terms = h.match ? Object.keys(h.match) : [];
+    const b = document.createElement('b'); b.append(marked(h.t + ' ', terms));
+    const desc = td(h.d, null, terms); desc.prepend(b);
+    tr.append(td(h.n, 'n', terms), desc, td(h.r ? h.r.join(' to ') : ''), td(h.u || ''));
     tr.onclick = () => {
       const next = tr.nextElementSibling;
       if (next?.classList.contains('x')) return next.remove();
